@@ -113,6 +113,7 @@ namespace Kursach2_WF_
                 radioButton2.Enabled = true;
                 radioButton3.Enabled = true;
                 button2.Enabled = true;
+
                 if (radioButton1.Checked == true)
                 {
                     radioButton1.Checked = false;
@@ -176,6 +177,7 @@ namespace Kursach2_WF_
         {
             bool notfin = false;
             int[,] values = new int[M, N];
+            int[,] values2 = new int[M, N];
             for (int i = 0; i < dataGridView1.Columns.Count; i++)
             {
                 for (int j = 0; j < dataGridView1.Rows.Count; j++)
@@ -196,7 +198,7 @@ namespace Kursach2_WF_
                     break;
                 }
             }
-            utils.calculate(opt, values);
+            values2 = utils.calculate(opt, values);
         }
 
     }
@@ -206,13 +208,16 @@ namespace Kursach2_WF_
     public class utils
     {
 
-        public static void calculate(int opt, int[,] values)
+        public static int[,] calculate(int opt, int[,] values)
         {
+            int[,] values2 = new int[1, 1];
             if (opt == 1)
             {
+                values2 = new int[values.GetLength(1), values.GetLength(0)];
 
-
-
+                for (int i = 0; i < values.GetLength(1); i++)
+                    for (int j = 0; j < values.GetLength(0); j++)
+                        values2[i, j] = values[j, i];
             }
             else if (opt == 2)
             {
@@ -223,6 +228,9 @@ namespace Kursach2_WF_
 
             }
 
+
+
+            return values2;
         }
 
 
