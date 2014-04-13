@@ -113,6 +113,21 @@ namespace Kursach2_WF_
                 radioButton2.Enabled = true;
                 radioButton3.Enabled = true;
                 button2.Enabled = true;
+                if (radioButton1.Checked == true)
+                {
+                    radioButton1.Checked = false;
+                    radioButton1.Checked = true;
+                }
+                if (radioButton2.Checked == true)
+                {
+                    radioButton2.Checked = false;
+                    radioButton2.Checked = true;
+                }
+                if (radioButton3.Checked == true)
+                {
+                    radioButton3.Checked = false;
+                    radioButton3.Checked = true;
+                }
             }
             else
             {
