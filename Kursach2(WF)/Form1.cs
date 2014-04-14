@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace Kursach2_WF_
 {
@@ -59,12 +60,17 @@ namespace Kursach2_WF_
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-')
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ',')
             {
                 e.Handled = true;
             }
 
             if (e.KeyChar == '-' && (sender as TextBox).Text.Length > 0)
+            {
+                e.Handled = true;
+            }
+
+            if (e.KeyChar == ',' && (sender as TextBox).Text.IndexOf(',') > -1)
             {
                 e.Handled = true;
             }
@@ -176,29 +182,52 @@ namespace Kursach2_WF_
         private void button2_Click(object sender, EventArgs e)
         {
             bool notfin = false;
-            int[,] values = new int[M, N];
-            int[,] values2 = new int[M, N];
+            double[,] values = new double[M, N];
             for (int i = 0; i < dataGridView1.Columns.Count; i++)
             {
                 for (int j = 0; j < dataGridView1.Rows.Count; j++)
                 {
-                    if (dataGridView1.Rows[j].Cells[i].Value == null)
+                    if (dataGridView1.Rows[j].Cells[i].Value == null || dataGridView1.Rows[j].Cells[i].Value.ToString() == "-" || dataGridView1.Rows[j].Cells[i].Value.ToString() == "," || dataGridView1.Rows[j].Cells[i].Value.ToString() == "-,")
                     {
                         notfin = true;
                         break;
                     }
                     else
                     {
-                        values[i, j] = Convert.ToInt32(dataGridView1.Rows[j].Cells[i].Value.ToString());
+                        values[i, j] = Convert.ToDouble(dataGridView1.Rows[j].Cells[i].Value.ToString());
                     }
                 }
                 if (notfin == true)
                 {
-                    MessageBox.Show("Заполните матрицу");
                     break;
                 }
             }
-            values2 = utils.calculate(opt, values);
+            if (notfin == true)
+            {
+                MessageBox.Show("Заполните матрицу");
+            }
+            else
+            {
+                if (opt == 1)
+                {
+                    double[,] values2 = new double[N, M];
+                    values2 = utils.transponse(values);
+                    Thread.Sleep(1);
+                }
+                else if (opt == 2)
+                {
+
+                }
+                else if (opt == 3)
+                {
+
+                }
+
+                else
+                {
+                    MessageBox.Show("Выберите действие");
+                }
+            }
         }
 
     }
@@ -208,27 +237,14 @@ namespace Kursach2_WF_
     public class utils
     {
 
-        public static int[,] calculate(int opt, int[,] values)
+        public static double[,] transponse(double[,] values)
         {
-            int[,] values2 = new int[1, 1];
-            if (opt == 1)
-            {
-                values2 = new int[values.GetLength(1), values.GetLength(0)];
+            double[,] values2 = new double[1, 1];
+            values2 = new double[values.GetLength(1), values.GetLength(0)];
 
-                for (int i = 0; i < values.GetLength(1); i++)
-                    for (int j = 0; j < values.GetLength(0); j++)
-                        values2[i, j] = values[j, i];
-            }
-            else if (opt == 2)
-            {
-
-            }
-            else if (opt == 3)
-            {
-
-            }
-
-
+            for (int i = 0; i < values.GetLength(1); i++)
+                for (int j = 0; j < values.GetLength(0); j++)
+                    values2[i, j] = values[j, i];
 
             return values2;
         }
