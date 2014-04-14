@@ -394,7 +394,6 @@ namespace Kursach2_WF_
                 {
                     dataGridView1.Rows[i].Cells[j].Value = null;
                 }
-
             }
         }
 
