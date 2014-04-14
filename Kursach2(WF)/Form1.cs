@@ -82,33 +82,41 @@ namespace Kursach2_WF_
 
         private void button1_Click(object sender, EventArgs e)
         {
-            N = Convert.ToInt32(textBox1.Text);
-            M = Convert.ToInt32(textBox2.Text);
+            dataGridView2.Enabled = false;
+            dataGridView2.Visible = false;
+            label4.Visible = false;
+
+            dataGridView1.Enabled = true;
+            dataGridView1.Visible = true;
+
+            M = Convert.ToInt32(textBox1.Text);
+            N = Convert.ToInt32(textBox2.Text);
 
             if ((Convert.ToInt32(textBox1.Text) > 0) && (Convert.ToInt32(textBox2.Text) > 0))
             {
-                dataGridView1.RowCount = N;
-                dataGridView1.ColumnCount = M;
+                dataGridView1.RowCount = M;
+                dataGridView1.ColumnCount = N;
                 int i = 0, j = 0;
 
-                for (i = 0; i < N; i++)
+                for (i = 0; i < M; i++)
                 {
-                    for (j = 0; j < M; j++)
+                    for (j = 0; j < N; j++)
                     {
                         dataGridView1.Columns[j].Width = 25;
                         dataGridView1.Rows[i].Height = 20;
+                        dataGridView1.Rows[i].Cells[j].Value = 1 + i;
                     }
 
                 }
-                if (N > 7) N = 7;
+                if (M > 7) M = 7;
 
                 int x, y;
 
-                x = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
-                y = dataGridView1.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+                x = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth + 1;
+                y = dataGridView1.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight + 1;
 
-                if (x > 201) x = 202;
-                if (y > 161) y = 162;
+                if (x > 201 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 202 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                if (y > 161 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 162 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
 
                 dataGridView1.Location = new Point(this.dataGridView1.Location.X, textBox1.Location.X);
                 dataGridView1.Location = new Point(this.dataGridView1.Location.Y, (400 - y) / 2);
@@ -182,19 +190,20 @@ namespace Kursach2_WF_
         private void button2_Click(object sender, EventArgs e)
         {
             bool notfin = false;
-            double[,] values = new double[M, N];
-            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            double[,] values = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
+
+            for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
-                for (int j = 0; j < dataGridView1.Rows.Count; j++)
+                for (int j = 0; j < dataGridView1.Columns.Count; j++)
                 {
-                    if (dataGridView1.Rows[j].Cells[i].Value == null || dataGridView1.Rows[j].Cells[i].Value.ToString() == "-" || dataGridView1.Rows[j].Cells[i].Value.ToString() == "," || dataGridView1.Rows[j].Cells[i].Value.ToString() == "-,")
+                    if (dataGridView1.Rows[i].Cells[j].Value == null || dataGridView1.Rows[i].Cells[j].Value.ToString() == "-" || dataGridView1.Rows[i].Cells[j].Value.ToString() == "," || dataGridView1.Rows[i].Cells[j].Value.ToString() == "-,")
                     {
                         notfin = true;
                         break;
                     }
                     else
                     {
-                        values[i, j] = Convert.ToDouble(dataGridView1.Rows[j].Cells[i].Value.ToString());
+                        values[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value.ToString());
                     }
                 }
                 if (notfin == true)
@@ -210,9 +219,43 @@ namespace Kursach2_WF_
             {
                 if (opt == 1)
                 {
-                    double[,] values2 = new double[N, M];
-                    values2 = utils.transponse(values);
-                    Thread.Sleep(1);
+                    label4.Visible = true;
+                    label4.Text = "=";
+
+                    int i = 0, j = 0;
+                    dataGridView2.Enabled = true;
+                    dataGridView2.Visible = true;
+
+                    dataGridView2.RowCount = dataGridView1.Columns.Count;
+                    dataGridView2.ColumnCount = dataGridView1.Rows.Count;
+
+                    for (i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        for (j = 0; j < dataGridView2.Columns.Count; j++)
+                        {
+                            dataGridView2.Columns[j].Width = 25;
+                            dataGridView2.Rows[i].Height = 20;
+                            dataGridView2.Rows[i].Cells[j].Value = values[j, i];
+                        }
+
+                    }
+
+                    int x, y;
+
+                    x = dataGridView2.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth + 1;
+                    y = dataGridView2.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight + 1;
+
+                    if (x > 201 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 202 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                    if (y > 161 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 162 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+
+                    label4.Location = new Point(this.label4.Location.X, dataGridView1.Location.X + label4.Size.Width + dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10);
+                    label4.Location = new Point(this.label4.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
+
+                    dataGridView2.Location = new Point(this.dataGridView2.Location.X, label4.Location.X + label4.Size.Width + 10);
+                    dataGridView2.Location = new Point(this.dataGridView2.Location.Y, (400 - y) / 2);
+
+                    dataGridView2.Size = new System.Drawing.Size(x, y);
+
                 }
                 else if (opt == 2)
                 {
@@ -236,18 +279,6 @@ namespace Kursach2_WF_
 
     public class utils
     {
-
-        public static double[,] transponse(double[,] values)
-        {
-            double[,] values2 = new double[1, 1];
-            values2 = new double[values.GetLength(1), values.GetLength(0)];
-
-            for (int i = 0; i < values.GetLength(1); i++)
-                for (int j = 0; j < values.GetLength(0); j++)
-                    values2[i, j] = values[j, i];
-
-            return values2;
-        }
 
 
 
