@@ -19,8 +19,6 @@ namespace Kursach2_WF_
         public Form1()
         {
             InitializeComponent();
-
-
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -69,7 +67,6 @@ namespace Kursach2_WF_
         }
         private void dataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ',')
             {
                 e.Handled = true;
@@ -84,7 +81,6 @@ namespace Kursach2_WF_
             {
                 e.Handled = true;
             }
-
         }
 
 
@@ -266,7 +262,6 @@ namespace Kursach2_WF_
 
                     int i = 0, j = 0;
                     dataGridView2.Visible = true;
-
                     dataGridView2.RowCount = dataGridView1.Columns.Count;
                     dataGridView2.ColumnCount = dataGridView1.Rows.Count;
 
@@ -396,9 +391,7 @@ namespace Kursach2_WF_
                 }
             }
         }
-
     }
-
 
 
     public class utils
