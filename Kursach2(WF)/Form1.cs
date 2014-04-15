@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Win32;
 //using System.Threading;
 
 namespace Kursach2_WF_
@@ -22,7 +23,40 @@ namespace Kursach2_WF_
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            bool is64bit = System.Environment.Is64BitOperatingSystem;
+            string netkey = "SOFTWARE\\Microsoft\\.NetFramework";
+            string install = "", version = "", latestver = "";
+            RegistryKey net = null, latestverkey = null;
 
+            if (is64bit == true)
+            {
+                net = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(netkey);
+            }
+            else
+            {
+                net = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(netkey);
+            }
+            if (net != null)
+            {
+                install = net.GetValue("InstallRoot").ToString();
+                version = string.Format("v{0}.{1}.{2}\\", Environment.Version.Major, Environment.Version.Minor, Environment.Version.Build);
+                if (is64bit == true)
+                {
+                    latestverkey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(System.IO.Path.Combine(netkey, version) + "SKUs\\.NETFramework,Version=v4.5.1");
+                }
+                else
+                {
+                    latestverkey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(System.IO.Path.Combine(netkey, version) + "SKUs\\.NETFramework,Version=v4.5.1");
+                }
+            }
+            else
+            {
+                MessageBox.Show(".NetFramework не установлен");
+            }
+            if (latestverkey == null)
+            {
+                MessageBox.Show(".NetFramework 4.5.1 не установлен");
+            }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -289,6 +323,8 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 2)
                 {
+                    double[,] values2 = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
+                    values2 = utils.invert(values);
 
                 }
                 else if (opt == 3)
@@ -396,6 +432,45 @@ namespace Kursach2_WF_
 
     public class utils
     {
+        public static double[,] invert(double[,] values)
+        {
+            int n = values.GetLength(0);
+            double[,] values2 =values;
+            double[,] swap = new double[1,n];
+            double det = 1;
+
+            for (int i = 0; i < n; ++i)
+            {
+                int k = i;
+                for (int j = i + 1; j < n; ++j) if (Math.Abs(values2[j, i]) > Math.Abs(values2[k, i])) k = j;
+                if (Math.Abs(values2[k, i]) < (0.000000001))
+                {
+                    det = 0;
+                    break;
+                }
+
+                for (int j = 0; j < n; ++j)
+                {
+                    swap[0,j] = values2[j, i];
+             //       values2[j, i] = values2[j, k];
+             //       values2[j, k] = swap[0,j];
+                }
+
+                if (i != k) det = -det;
+                det *= values[i, i];
+
+                for (int j = i + 1; j < n; ++j)
+                    if ((j != i) && Math.Abs(values[j, i]) > (0.000000001))
+                        for (k = i + 1; k < n; ++k)
+                            values2[j, k] -= values[i, k] * values[j, i];
+            }
+            //     if (det == 0) return null;
+            MessageBox.Show("Determinatn = " + det.ToString());
+
+            return values2;
+        }
+
+
 
 
     }
