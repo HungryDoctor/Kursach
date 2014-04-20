@@ -226,7 +226,7 @@ namespace Kursach2_WF_
                     {
                         dataGridView1.Columns[j].Width = 25;
                         dataGridView1.Rows[i].Height = 20;
-                        dataGridView1.Rows[i].Cells[j].Value = i*j+1;
+                        dataGridView1.Rows[i].Cells[j].Value = i * j + 1;
                     }
                 }
 
@@ -243,11 +243,11 @@ namespace Kursach2_WF_
                 if (M == N)
                 {
                     radioButton2.Enabled = true;
+                    radioButton6.Enabled = true;
                 }
                 radioButton3.Enabled = true;
                 radioButton4.Enabled = false;
                 radioButton5.Enabled = true;
-                radioButton6.Enabled = true;
                 radioButton7.Enabled = false;
                 button2.Enabled = true;
                 button3.Enabled = true;
@@ -259,8 +259,15 @@ namespace Kursach2_WF_
                 }
                 if (radioButton2.Checked == true)
                 {
-                    radioButton2.Checked = false;
-                    radioButton2.Checked = true;
+                    if (M == N)
+                    {
+                        radioButton2.Checked = false;
+                        radioButton2.Checked = true;
+                    }
+                    else
+                    {
+                        radioButton2.Checked = false;
+                    }
                 }
                 if (radioButton3.Checked == true)
                 {
@@ -279,14 +286,24 @@ namespace Kursach2_WF_
                 }
                 if (radioButton6.Checked == true)
                 {
-                    radioButton6.Checked = false;
-                    radioButton6.Checked = true;
+                    if (M == N)
+                    {
+                        radioButton6.Checked = false;
+                        radioButton6.Checked = true;
+                    }
+                    else
+                    {
+                        radioButton6.Checked = false;
+                    }
                 }
                 if (radioButton7.Checked == true)
                 {
                     radioButton7.Checked = false;
                     radioButton7.Checked = true;
                 }
+
+                opt = 0;
+                label2.Visible = false;
             }
             else
             {
@@ -360,7 +377,7 @@ namespace Kursach2_WF_
                 {
                     int n = dataGridView1.Rows.Count;
                     double[,] values2 = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
-                    double det = utils.InverseDeterm(n, values);
+                    double det = utils.Determ(n, values);
 
                     if (det != 0)
                     {
@@ -372,7 +389,6 @@ namespace Kursach2_WF_
                         dataGridView2.Visible = true;
                         dataGridView2.RowCount = dataGridView1.Rows.Count;
                         dataGridView2.ColumnCount = dataGridView1.Columns.Count;
-
 
                         values2 = utils.Inverse(n, values);
 
@@ -452,7 +468,36 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 6)
                 {
+                    label4.Visible = true;
+                    label4.Text = "=";
 
+                    int i, j;
+                    int x, y;
+                    dataGridView2.Visible = true;
+                    dataGridView2.RowCount = 1;
+                    dataGridView2.ColumnCount = 1;
+
+                    double det = utils.Determ(dataGridView1.Rows.Count, values);
+
+                    for (i = 0; i < dataGridView2.Rows.Count; i++)
+                    {
+                        for (j = 0; j < dataGridView2.Columns.Count; j++)
+                        {
+                            dataGridView2.Columns[j].Width = 25;
+                            dataGridView2.Rows[i].Height = 20;
+                            dataGridView2.Rows[i].Cells[j].Value = det;
+                        }
+                    }
+
+                    x = dataGridView2.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
+                    y = dataGridView2.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+                    if (x > 201 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 202 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                    if (y > 161 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 162 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+                    label4.Location = new Point(this.label4.Location.X, dataGridView1.Location.X + dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10);
+                    label4.Location = new Point(this.label4.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
+                    dataGridView2.Location = new Point(this.dataGridView2.Location.X, label4.Location.X + label4.Size.Width + 10);
+                    dataGridView2.Location = new Point(this.dataGridView2.Location.Y, (400 - y) / 2);
+                    dataGridView2.Size = new System.Drawing.Size(x, y);
                 }
                 else if (opt == 7)
                 {
@@ -485,7 +530,7 @@ namespace Kursach2_WF_
 
     public class utils
     {
-        public static double InverseDeterm(int n, double[,] values)
+        public static double Determ(int n, double[,] values)
         {
             int i, j, j1, j2;
             double det = 0;
@@ -515,7 +560,7 @@ namespace Kursach2_WF_
                             j2++;
                         }
                     }
-                    det += Math.Pow(-1.0, j1 + 2.0) * values[0, j1] * InverseDeterm(n - 1, values2);
+                    det += Math.Pow(-1.0, j1 + 2.0) * values[0, j1] * Determ(n - 1, values2);
                 }
             }
             return (det);
@@ -547,11 +592,11 @@ namespace Kursach2_WF_
                         }
                         i1++;
                     }
-                    det = InverseDeterm(n - 1, values2);
+                    det = Determ(n - 1, values2);
                     values3[i, j] = Math.Pow(-1.0, i + j + 2.0) * det;
                 }
             }
-            det = InverseDeterm(n,values);
+            det = Determ(n, values);
             double temp;
 
             for (i = 0; i < n; i++)
