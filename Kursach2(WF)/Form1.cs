@@ -390,7 +390,14 @@ namespace Kursach2_WF_
                         dataGridView2.RowCount = dataGridView1.Rows.Count;
                         dataGridView2.ColumnCount = dataGridView1.Columns.Count;
 
-                        values2 = utils.Inverse(n, values);
+                        if (n > 1)
+                        {
+                            values2 = utils.Inverse(n, values);
+                        }
+                        else                       
+                        {
+                            values2 = values;
+                        }
 
                         i = 0;
                         j = 0;
