@@ -76,19 +76,29 @@ namespace Kursach2_WF_
         }
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ',')
+            if (opt == 3)
             {
-                e.Handled = true;
-            }
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '-' && e.KeyChar != ',')
+                {
+                    e.Handled = true;
+                }
 
-            if (e.KeyChar == '-' && (sender as TextBox).Text.Length > 0)
-            {
-                e.Handled = true;
-            }
+                if (e.KeyChar == '-' && (sender as TextBox).Text.Length > 0)
+                {
+                    e.Handled = true;
+                }
 
-            if (e.KeyChar == ',' && (sender as TextBox).Text.IndexOf(',') > -1)
+                if (e.KeyChar == ',' && (sender as TextBox).Text.IndexOf(',') > -1)
+                {
+                    e.Handled = true;
+                }
+            }
+            else if (opt == 5)
             {
-                e.Handled = true;
+                if (!Char.IsDigit(e.KeyChar) && e.KeyChar != Convert.ToChar(8))
+                {
+                    e.Handled = true;
+                }
             }
         }
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -169,6 +179,7 @@ namespace Kursach2_WF_
         {
             label2.Visible = false;
             textBox3.Visible = true;
+            textBox3.Text = "";
             label4.Visible = false;
             dataGridView2.Visible = false;
             opt = 5;
@@ -204,7 +215,7 @@ namespace Kursach2_WF_
             radioButton4.Enabled = false;
             radioButton5.Enabled = false;
             radioButton6.Enabled = false;
-            radioButton7.Enabled = false;
+            radioButton7.Enabled = false;          
             label4.Visible = false;
             button2.Enabled = false;
             button3.Enabled = false;
@@ -243,15 +254,16 @@ namespace Kursach2_WF_
                 if (M == N)
                 {
                     radioButton2.Enabled = true;
-                    radioButton6.Enabled = true;
+                    radioButton5.Enabled = true;
+                   radioButton6.Enabled = true;                   
                 }
                 radioButton3.Enabled = true;
                 radioButton4.Enabled = false;
-                radioButton5.Enabled = true;
                 radioButton7.Enabled = false;
                 button2.Enabled = true;
                 button3.Enabled = true;
 
+                opt = 0;
                 if (radioButton1.Checked == true)
                 {
                     radioButton1.Checked = false;
@@ -281,8 +293,15 @@ namespace Kursach2_WF_
                 }
                 if (radioButton5.Checked == true)
                 {
-                    radioButton5.Checked = false;
-                    radioButton5.Checked = true;
+                    if (M == N)
+                    {
+                        radioButton5.Checked = false;
+                        radioButton5.Checked = true;
+                    }
+                    else
+                    {
+                        radioButton5.Checked = false;
+                    }
                 }
                 if (radioButton6.Checked == true)
                 {
@@ -302,8 +321,9 @@ namespace Kursach2_WF_
                     radioButton7.Checked = true;
                 }
 
-                opt = 0;
+
                 label2.Visible = false;
+                textBox3.Visible = false;
             }
             else
             {
@@ -371,7 +391,6 @@ namespace Kursach2_WF_
                     dataGridView2.Location = new Point(this.dataGridView2.Location.X, label4.Location.X + label4.Size.Width + 10);
                     dataGridView2.Location = new Point(this.dataGridView2.Location.Y, (400 - y) / 2);
                     dataGridView2.Size = new System.Drawing.Size(x, y);
-
                 }
                 else if (opt == 2)
                 {
@@ -394,7 +413,7 @@ namespace Kursach2_WF_
                         {
                             values2 = utils.Inverse(n, values);
                         }
-                        else                       
+                        else
                         {
                             values2 = values;
                         }
@@ -471,7 +490,63 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 5)
                 {
+                    if (textBox3.Text != "" && Convert.ToInt32(textBox3.Text) > 0)
+                    {
+                        label4.Visible = true;
+                        label4.Text = "=";
 
+                        int i = 0, j = 0;
+                        dataGridView2.Visible = true;
+                        dataGridView2.RowCount = dataGridView1.Rows.Count;
+                        dataGridView2.ColumnCount = dataGridView1.Columns.Count;
+
+                        double[,] values2 = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
+
+                        if (Convert.ToInt32(textBox3.Text) > 1)
+                        {
+                            for (int k = 0; k < Convert.ToInt32(textBox3.Text) - 1; k++)
+                            {
+                                for (int row = 0; row < dataGridView1.Rows.Count; row++)
+                                {
+                                    for (int col = 0; col < dataGridView1.Columns.Count; col++)
+                                    {
+                                        for (int inner = 0; inner < dataGridView1.Rows.Count; inner++)
+                                        {
+                                            values2[row, col] += values[row, inner] * values[inner, col];
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            values2 = values;
+                        }
+                        for (i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Columns[j].Width = 25;
+                                dataGridView2.Rows[i].Height = 20;
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
+
+                        int x, y;
+                        x = dataGridView2.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
+                        y = dataGridView2.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+                        if (x > 201 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 202 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                        if (y > 161 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 162 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+                        label4.Location = new Point(this.label4.Location.X, dataGridView1.Location.X + dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10);
+                        label4.Location = new Point(this.label4.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
+                        dataGridView2.Location = new Point(this.dataGridView2.Location.X, label4.Location.X + label4.Size.Width + 10);
+                        dataGridView2.Location = new Point(this.dataGridView2.Location.Y, (400 - y) / 2);
+                        dataGridView2.Size = new System.Drawing.Size(x, y);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Введите степень матрицы");
+                    }
                 }
                 else if (opt == 6)
                 {
