@@ -1,4 +1,10 @@
-﻿using System;
+﻿//To do list:
+//   disable calc, if 2 matrix not generated;
+//   label is not depend on column.count;
+//   set up max symbols in 1 cell and textbox;
+//   maybe recompile in 3.5   
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -702,7 +708,7 @@ namespace Kursach2_WF_
                             {
                                 dataGridView2.Columns[j].Width = 25;
                                 dataGridView2.Rows[i].Height = 20;
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i,j];
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
                             }
                         }
 
@@ -822,7 +828,7 @@ namespace Kursach2_WF_
                     {
                         label4.Visible = true;
                         label4.Text = "=";
-                
+
                         dataGridView2.Visible = true;
                         dataGridView2.RowCount = M;
                         dataGridView2.ColumnCount = n;
