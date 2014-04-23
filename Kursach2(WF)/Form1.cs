@@ -8,15 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Win32;
-//using System.Threading;
 
 namespace Kursach2_WF_
 {
     public partial class Form1 : Form
     {
         int opt = 0;
-        int M;
-        int N;
+        int N, M;
+        int n, m;
         public Form1()
         {
             InitializeComponent();
@@ -101,6 +100,14 @@ namespace Kursach2_WF_
                 }
             }
         }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != Convert.ToChar(8))
+            {
+                e.Handled = true;
+            }
+        }
         private void dataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             TextBox tb = e.Control as TextBox;
@@ -127,14 +134,87 @@ namespace Kursach2_WF_
             }
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (opt == 7)
+            {
+                textBox5.Text = textBox1.Text;
+            }
+            try
+            {
+                if (Convert.ToInt32(textBox1.Text) < 1)
+                {
+                    button1.Enabled = false;
+                }
+                else
+                {
+                    button1.Enabled = true;
+                }
+            }
+            catch
+            {
+                button1.Enabled = false;
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (opt == 7)
+            {
+                textBox4.Text = textBox2.Text;
+            }
+            else
+            {
+                textBox5.Text = textBox2.Text;
+            }
+            try
+            {
+                if (Convert.ToInt32(textBox2.Text) < 1)
+                {
+                    button1.Enabled = false;
+                }
+                else
+                {
+                    button1.Enabled = true;
+                }
+            }
+            catch
+            {
+                button1.Enabled = false;
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Convert.ToInt32(textBox4.Text) < 1)
+                {
+                    button1.Enabled = false;
+                }
+                else
+                {
+                    button1.Enabled = true;
+                }
+            }
+            catch
+            {
+                button1.Enabled = false;
+            }
+        }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             label2.Visible = true;
+            label3.Visible = false;
             textBox3.Visible = false;
             textBox3.Text = "";
             label4.Visible = false;
+            textBox4.Visible = false;
+            textBox5.Visible = false;
             dataGridView2.Visible = false;
+            dataGridView3.Visible = false;
+            textBox4.ReadOnly = false;
             opt = 1;
 
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
@@ -145,10 +225,15 @@ namespace Kursach2_WF_
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
             label2.Visible = true;
+            label3.Visible = false;
             textBox3.Visible = false;
             textBox3.Text = "";
             label4.Visible = false;
+            textBox4.Visible = false;
+            textBox5.Visible = false;
             dataGridView2.Visible = false;
+            dataGridView3.Visible = false;
+            textBox4.ReadOnly = false;
             opt = 2;
 
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
@@ -160,9 +245,14 @@ namespace Kursach2_WF_
         {
             label2.Visible = true;
             label2.Text = "X";
+            label3.Visible = false;
             textBox3.Visible = true;
             label4.Visible = false;
+            textBox4.Visible = false;
+            textBox5.Visible = false;
             dataGridView2.Visible = false;
+            dataGridView3.Visible = false;
+            textBox4.ReadOnly = false;
             opt = 3;
 
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X - label2.Size.Width - 3);
@@ -173,29 +263,51 @@ namespace Kursach2_WF_
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
         {
+            label2.Visible = true;
+            label2.Text = "X";
+            label3.Visible = true;
+            textBox3.Visible = false;
+            textBox4.Visible = true;
+            textBox5.Visible = true;
+            label4.Visible = false;
+            textBox4.ReadOnly = false;
+            dataGridView2.Visible = false;
+            opt = 4;
+
+            label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10);
+            label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
         {
             label2.Visible = false;
+            label3.Visible = false;
             textBox3.Visible = true;
             textBox3.Text = "";
             label4.Visible = false;
+            textBox4.Visible = false;
+            textBox5.Visible = false;
+            textBox4.ReadOnly = false;
             dataGridView2.Visible = false;
+            dataGridView3.Visible = false;
             opt = 5;
 
             textBox3.Location = new Point(this.textBox3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
             textBox3.Location = new Point(this.textBox3.Location.Y, dataGridView1.Location.Y - 15);
-
         }
 
         private void radioButton6_CheckedChanged(object sender, EventArgs e)
         {
             label2.Visible = true;
+            label3.Visible = false;
             label2.Text = "det";
             textBox3.Visible = false;
             label4.Visible = false;
+            textBox4.Visible = false;
+            textBox5.Visible = false;
+            textBox4.ReadOnly = false;
             dataGridView2.Visible = false;
+            dataGridView3.Visible = false;
             opt = 6;
 
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X - label2.Size.Width - 3);
@@ -204,7 +316,19 @@ namespace Kursach2_WF_
 
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
         {
+            label2.Visible = true;
+            label2.Text = "+";
+            label3.Visible = true;
+            textBox3.Visible = false;
+            label4.Visible = false;
+            textBox4.Visible = true;
+            textBox5.Visible = true;
+            textBox4.ReadOnly = true;
+            dataGridView2.Visible = false;
+            opt = 7;
 
+            label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10);
+            label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -215,119 +339,157 @@ namespace Kursach2_WF_
             radioButton4.Enabled = false;
             radioButton5.Enabled = false;
             radioButton6.Enabled = false;
-            radioButton7.Enabled = false;          
+            radioButton7.Enabled = false;
             label4.Visible = false;
             button2.Enabled = false;
             button3.Enabled = false;
+            textBox4.Visible = false;
+            textBox5.Visible = false;
             dataGridView2.Visible = false;
+            dataGridView3.Visible = false;
             dataGridView1.Visible = true;
 
             M = Convert.ToInt32(textBox1.Text);
             N = Convert.ToInt32(textBox2.Text);
 
-            if ((Convert.ToInt32(textBox1.Text) > 0) && (Convert.ToInt32(textBox2.Text) > 0))
-            {
-                dataGridView1.RowCount = M;
-                dataGridView1.ColumnCount = N;
-                int i = 0, j = 0;
+            dataGridView1.RowCount = M;
+            dataGridView1.ColumnCount = N;
+            int i = 0, j = 0;
 
-                for (i = 0; i < M; i++)
+            for (i = 0; i < M; i++)
+            {
+                for (j = 0; j < N; j++)
                 {
-                    for (j = 0; j < N; j++)
+                    dataGridView1.Columns[j].Width = 25;
+                    dataGridView1.Rows[i].Height = 20;
+                    dataGridView1.Rows[i].Cells[j].Value = i * j + 1;
+                }
+            }
+
+            int x, y;
+            x = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
+            y = dataGridView1.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+
+
+            if (opt == 4 || opt == 7)
+            {
+                m = Convert.ToInt32(textBox5.Text);
+                n = Convert.ToInt32(textBox4.Text);
+
+                dataGridView3.RowCount = m;
+                dataGridView3.ColumnCount = n;
+
+                for (i = 0; i < m; i++)
+                {
+                    for (j = 0; j < n; j++)
                     {
-                        dataGridView1.Columns[j].Width = 25;
-                        dataGridView1.Rows[i].Height = 20;
-                        dataGridView1.Rows[i].Cells[j].Value = i * j + 1;
+                        dataGridView3.Columns[j].Width = 25;
+                        dataGridView3.Rows[i].Height = 20;
+                        dataGridView3.Rows[i].Cells[j].Value = i * j + 1;
                     }
                 }
 
-                int x, y;
-                x = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
-                y = dataGridView1.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+                if (x > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 127 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                if (y > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+                dataGridView1.Location = new Point(this.dataGridView1.Location.X, textBox1.Location.X);
+                dataGridView1.Location = new Point(this.dataGridView1.Location.Y, (400 - y) / 2);
+                dataGridView1.Size = new System.Drawing.Size(x, y);
+
+                int z, p;
+
+                z = dataGridView3.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
+                p = dataGridView3.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+
+                if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 127 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                if (p > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) p = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+                dataGridView3.Visible = true;
+                dataGridView3.Location = new Point(this.dataGridView3.Location.X, dataGridView1.Location.X + dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10 + label2.Width + 7);
+                dataGridView3.Location = new Point(this.dataGridView3.Location.Y, (400 - p) / 2);
+                dataGridView3.Size = new System.Drawing.Size(z, p);
+            }
+            else
+            {
                 if (x > 201 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 202 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
                 if (y > 161 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 162 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
                 dataGridView1.Location = new Point(this.dataGridView1.Location.X, textBox1.Location.X);
                 dataGridView1.Location = new Point(this.dataGridView1.Location.Y, (400 - y) / 2);
                 dataGridView1.Size = new System.Drawing.Size(x, y);
+            }
 
-                radioButton1.Enabled = true;
+
+
+
+            radioButton1.Enabled = true;
+            if (M == N)
+            {
+                radioButton2.Enabled = true;
+                radioButton5.Enabled = true;
+                radioButton6.Enabled = true;
+            }
+            radioButton3.Enabled = true;
+            radioButton4.Enabled = true;
+            radioButton7.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+
+            opt = 0;
+            label2.Visible = false;
+            textBox3.Visible = false;
+            if (radioButton1.Checked == true)
+            {
+                radioButton1.Checked = false;
+                radioButton1.Checked = true;
+            }
+            if (radioButton2.Checked == true)
+            {
                 if (M == N)
                 {
-                    radioButton2.Enabled = true;
-                    radioButton5.Enabled = true;
-                   radioButton6.Enabled = true;                   
+                    radioButton2.Checked = false;
+                    radioButton2.Checked = true;
                 }
-                radioButton3.Enabled = true;
-                radioButton4.Enabled = false;
-                radioButton7.Enabled = false;
-                button2.Enabled = true;
-                button3.Enabled = true;
-
-                opt = 0;
-                if (radioButton1.Checked == true)
+                else
                 {
-                    radioButton1.Checked = false;
-                    radioButton1.Checked = true;
+                    radioButton2.Checked = false;
                 }
-                if (radioButton2.Checked == true)
-                {
-                    if (M == N)
-                    {
-                        radioButton2.Checked = false;
-                        radioButton2.Checked = true;
-                    }
-                    else
-                    {
-                        radioButton2.Checked = false;
-                    }
-                }
-                if (radioButton3.Checked == true)
-                {
-                    radioButton3.Checked = false;
-                    radioButton3.Checked = true;
-                }
-                if (radioButton4.Checked == true)
-                {
-                    radioButton4.Checked = false;
-                    radioButton4.Checked = true;
-                }
-                if (radioButton5.Checked == true)
-                {
-                    if (M == N)
-                    {
-                        radioButton5.Checked = false;
-                        radioButton5.Checked = true;
-                    }
-                    else
-                    {
-                        radioButton5.Checked = false;
-                    }
-                }
-                if (radioButton6.Checked == true)
-                {
-                    if (M == N)
-                    {
-                        radioButton6.Checked = false;
-                        radioButton6.Checked = true;
-                    }
-                    else
-                    {
-                        radioButton6.Checked = false;
-                    }
-                }
-                if (radioButton7.Checked == true)
-                {
-                    radioButton7.Checked = false;
-                    radioButton7.Checked = true;
-                }
-
-
-                label2.Visible = false;
-                textBox3.Visible = false;
             }
-            else
+            if (radioButton3.Checked == true)
             {
-                MessageBox.Show("Размеры не могут быть равны 0");
+                radioButton3.Checked = false;
+                radioButton3.Checked = true;
+            }
+            if (radioButton4.Checked == true)
+            {
+                radioButton4.Checked = false;
+                radioButton4.Checked = true;
+            }
+            if (radioButton5.Checked == true)
+            {
+                if (M == N)
+                {
+                    radioButton5.Checked = false;
+                    radioButton5.Checked = true;
+                }
+                else
+                {
+                    radioButton5.Checked = false;
+                }
+            }
+            if (radioButton6.Checked == true)
+            {
+                if (M == N)
+                {
+                    radioButton6.Checked = false;
+                    radioButton6.Checked = true;
+                }
+                else
+                {
+                    radioButton6.Checked = false;
+                }
+            }
+            if (radioButton7.Checked == true)
+            {
+                radioButton7.Checked = false;
+                radioButton7.Checked = true;
             }
         }
 
@@ -335,6 +497,7 @@ namespace Kursach2_WF_
         {
             bool notfin = false;
             double[,] values = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
+            double[,] svalues = new double[dataGridView3.Rows.Count, dataGridView3.Columns.Count];
 
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
@@ -353,6 +516,28 @@ namespace Kursach2_WF_
                 if (notfin == true)
                 {
                     break;
+                }
+            }
+            if (opt == 4 || opt == 7)
+            {
+                for (int i = 0; i < dataGridView3.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dataGridView3.Columns.Count; j++)
+                    {
+                        if (dataGridView3.Rows[i].Cells[j].Value == null || dataGridView3.Rows[i].Cells[j].Value.ToString() == "-" || dataGridView3.Rows[i].Cells[j].Value.ToString() == "," || dataGridView3.Rows[i].Cells[j].Value.ToString() == "-,")
+                        {
+                            notfin = true;
+                            break;
+                        }
+                        else
+                        {
+                            svalues[i, j] = Convert.ToDouble(dataGridView3.Rows[i].Cells[j].Value.ToString());
+                        }
+                    }
+                    if (notfin == true)
+                    {
+                        break;
+                    }
                 }
             }
             if (notfin == true)
@@ -486,7 +671,57 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 4)
                 {
+                    if (textBox4.Text != "" && Convert.ToInt32(textBox4.Text) > 0)
+                    {
+                        label4.Visible = true;
+                        label4.Text = "=";
 
+                        int i = 0, j = 0;
+                        dataGridView2.Visible = true;
+                        dataGridView2.RowCount = M;
+                        dataGridView2.ColumnCount = n;
+
+                        double[,] values2 = new double[M, n];
+
+
+                        for (int row = 0; row < M; row++)
+                        {
+                            for (int col = 0; col < n; col++)
+                            {
+                                for (int inner = 0; inner < dataGridView3.Rows.Count; inner++)
+                                {
+                                    values2[row, col] += values[row, inner] * svalues[inner, col];
+                                }
+                            }
+                        }
+
+
+                        for (i = 0; i < M; i++)
+                        {
+                            for (j = 0; j < n; j++)
+                            {
+                                dataGridView2.Columns[j].Width = 25;
+                                dataGridView2.Rows[i].Height = 20;
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i,j];
+                            }
+                        }
+
+                        int x, y;
+                        x = dataGridView2.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
+                        y = dataGridView2.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+                        if (x > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                        if (y > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+
+                        label4.Location = new Point(this.label4.Location.X, dataGridView3.Location.X + dataGridView3.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10);
+                        label4.Location = new Point(this.label4.Location.Y, dataGridView3.Location.Y + (dataGridView3.Size.Height / 2) - 7);
+                        dataGridView2.Location = new Point(this.dataGridView2.Location.X, label4.Location.X + label4.Size.Width + 10);
+                        dataGridView2.Location = new Point(this.dataGridView2.Location.Y, (400 - y) / 2);
+                        dataGridView2.Size = new System.Drawing.Size(x, y);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Введите размер 2 матрицы");
+                    }
                 }
                 else if (opt == 5)
                 {
@@ -583,7 +818,51 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 7)
                 {
+                    if (textBox4.Text != "" && Convert.ToInt32(textBox4.Text) > 0)
+                    {
+                        label4.Visible = true;
+                        label4.Text = "=";
+                
+                        dataGridView2.Visible = true;
+                        dataGridView2.RowCount = M;
+                        dataGridView2.ColumnCount = n;
 
+                        double[,] values2 = new double[M, n];
+
+                        for (int i = 0; i < M; i++)
+                        {
+                            for (int j = 0; j < n; j++)
+                            {
+                                values2[i, j] = values[i, j] + svalues[i, j];
+                            }
+                        }
+
+                        for (int i = 0; i < M; i++)
+                        {
+                            for (int j = 0; j < n; j++)
+                            {
+                                dataGridView2.Columns[j].Width = 25;
+                                dataGridView2.Rows[i].Height = 20;
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
+
+                        int x, y;
+                        x = dataGridView2.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
+                        y = dataGridView2.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+                        if (x > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                        if (y > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+
+                        label4.Location = new Point(this.label4.Location.X, dataGridView3.Location.X + dataGridView3.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 10);
+                        label4.Location = new Point(this.label4.Location.Y, dataGridView3.Location.Y + (dataGridView3.Size.Height / 2) - 7);
+                        dataGridView2.Location = new Point(this.dataGridView2.Location.X, label4.Location.X + label4.Size.Width + 10);
+                        dataGridView2.Location = new Point(this.dataGridView2.Location.Y, (400 - y) / 2);
+                        dataGridView2.Size = new System.Drawing.Size(x, y);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Введите размер 2 матрицы");
+                    }
                 }
                 else
                 {
