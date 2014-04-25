@@ -1,6 +1,6 @@
 ﻿//To do list:
 //   set up max symbols in 1 cell and textbox;
-//   maybe recompile in 3.5 or add instalation 4.5.1
+//   maybe recompile in 3.5 or add instalation 4.5.1;
 
 using System;
 using System.Collections.Generic;
@@ -142,7 +142,7 @@ namespace Kursach2_WF_
         {
             try
             {
-                if (Convert.ToInt32(textBox1.Text) < 1)
+                if (Convert.ToInt32(textBox1.Text) < 1 || Convert.ToInt32(textBox1.Text) >10)
                 {
                     button1.Enabled = false;
                 }
@@ -161,7 +161,7 @@ namespace Kursach2_WF_
         {
             try
             {
-                if (Convert.ToInt32(textBox2.Text) < 1)
+                if (Convert.ToInt32(textBox2.Text) < 1 || Convert.ToInt32(textBox2.Text) > 10)
                 {
                     button1.Enabled = false;
                 }
@@ -180,7 +180,7 @@ namespace Kursach2_WF_
         {
             try
             {
-                if (Convert.ToInt32(textBox4.Text) < 1)
+                if (Convert.ToInt32(textBox4.Text) < 1 || Convert.ToInt32(textBox4.Text) > 10)
                 {
                     button1.Enabled = false;
                 }
