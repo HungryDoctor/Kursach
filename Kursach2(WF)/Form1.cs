@@ -1,6 +1,6 @@
 ﻿//To do list:
 //   set up max symbols in 1 cell and textbox;
-//   maybe recompile in 3.5 or add instalation 4.5.1;
+//   recompile in 3.5 or 3.0;
 
 using System;
 using System.Collections.Generic;
