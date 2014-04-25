@@ -1,4 +1,4 @@
-﻿//To do list:
+//To do list:
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 
@@ -26,40 +26,6 @@ namespace Kursach2_WF_
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            bool is64bit = System.Environment.Is64BitOperatingSystem;
-            string netkey = "SOFTWARE\\Microsoft\\.NetFramework";
-            string install = "", version = "";
-            RegistryKey net = null, latestverkey = null;
-
-            if (is64bit == true)
-            {
-                net = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(netkey);
-            }
-            else
-            {
-                net = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(netkey);
-            }
-            if (net != null)
-            {
-                install = net.GetValue("InstallRoot").ToString();
-                version = string.Format("v{0}.{1}.{2}\\", Environment.Version.Major, Environment.Version.Minor, Environment.Version.Build);
-                if (is64bit == true)
-                {
-                    latestverkey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64).OpenSubKey(System.IO.Path.Combine(netkey, version) + "SKUs\\.NETFramework,Version=v4.5.1");
-                }
-                else
-                {
-                    latestverkey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32).OpenSubKey(System.IO.Path.Combine(netkey, version) + "SKUs\\.NETFramework,Version=v4.5.1");
-                }
-            }
-            else
-            {
-                MessageBox.Show(".NetFramework не установлен");
-            }
-            if (latestverkey == null)
-            {
-                MessageBox.Show(".NetFramework 4.5.1 не установлен");
-            }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
