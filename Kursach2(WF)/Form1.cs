@@ -1,7 +1,9 @@
-//To do list:
+﻿//To do list:
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 //   remove unnecessary libraries;
+//   save to file;
+//   open from file;
 
 using System;
 using System.Collections.Generic;
