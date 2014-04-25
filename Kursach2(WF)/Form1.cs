@@ -1,6 +1,7 @@
 //To do list:
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
+//   remove unnecessary libraries;
 
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace Kursach2_WF_
 {
