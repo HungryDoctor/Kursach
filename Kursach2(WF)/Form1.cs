@@ -22,6 +22,9 @@ namespace Kursach2_WF_
         int opt = 0;
         int N, M;
         int n, m;
+        double[,] values;
+        double[,] values2;
+        double[,] svalues;
         public Form1()
         {
             InitializeComponent();
@@ -110,7 +113,7 @@ namespace Kursach2_WF_
         {
             try
             {
-                if (Convert.ToInt32(textBox1.Text) < 1 || Convert.ToInt32(textBox1.Text) >10)
+                if (Convert.ToInt32(textBox1.Text) < 1 || Convert.ToInt32(textBox1.Text) > 10)
                 {
                     button1.Enabled = false;
                 }
@@ -178,11 +181,11 @@ namespace Kursach2_WF_
             textBox4.ReadOnly = false;
             opt = 1;
 
+            datagridsize(false);
+
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y - 10);
             label2.Text = "T";
-
-            datagridsize(false);
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -200,11 +203,11 @@ namespace Kursach2_WF_
             textBox4.ReadOnly = false;
             opt = 2;
 
+            datagridsize(false);
+
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y - 10);
             label2.Text = "-1";
-
-            datagridsize(false);
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -223,12 +226,12 @@ namespace Kursach2_WF_
             textBox4.ReadOnly = false;
             opt = 3;
 
+            datagridsize(false);
+
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X - label2.Size.Width - 3);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
             textBox3.Location = new Point(this.textBox3.Location.X, dataGridView1.Location.X - textBox3.Size.Width - label2.Size.Width - 6);
             textBox3.Location = new Point(this.textBox3.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 10);
-
-            datagridsize(false);
         }
 
         private void radioButton4_CheckedChanged(object sender, EventArgs e)
@@ -249,10 +252,10 @@ namespace Kursach2_WF_
             int z = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
             if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
 
+            datagridsize(true);
+
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + z + 5);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
-
-            datagridsize(true);
         }
 
         private void radioButton5_CheckedChanged(object sender, EventArgs e)
@@ -270,10 +273,10 @@ namespace Kursach2_WF_
             dataGridView3.Visible = false;
             opt = 5;
 
+            datagridsize(false);
+
             textBox3.Location = new Point(this.textBox3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
             textBox3.Location = new Point(this.textBox3.Location.Y, dataGridView1.Location.Y - 15);
-
-            datagridsize(false);
         }
 
         private void radioButton6_CheckedChanged(object sender, EventArgs e)
@@ -290,10 +293,10 @@ namespace Kursach2_WF_
             dataGridView3.Visible = false;
             opt = 6;
 
+            datagridsize(false);
+
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X - label2.Size.Width - 3);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
-
-            datagridsize(false);
         }
 
         private void radioButton7_CheckedChanged(object sender, EventArgs e)
@@ -311,13 +314,13 @@ namespace Kursach2_WF_
             dataGridView2.Visible = false;
             opt = 7;
 
+            datagridsize(true);
+
             int z = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
             if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
 
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + z + 5);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
-
-            datagridsize(true);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -461,8 +464,8 @@ namespace Kursach2_WF_
         private void button2_Click(object sender, EventArgs e)
         {
             bool notfin = false;
-            double[,] values = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
-            double[,] svalues = new double[dataGridView3.Rows.Count, dataGridView3.Columns.Count];
+            values = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
+            svalues = new double[dataGridView3.Rows.Count, dataGridView3.Columns.Count];
 
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
@@ -552,7 +555,7 @@ namespace Kursach2_WF_
                 else if (opt == 2)
                 {
                     int n = dataGridView1.Rows.Count;
-                    double[,] values2 = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
+                    values2 = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
                     double det = utils.Determ(n, values);
 
                     if (det != 0)
@@ -653,7 +656,7 @@ namespace Kursach2_WF_
                         dataGridView2.RowCount = M;
                         dataGridView2.ColumnCount = n;
 
-                        double[,] values2 = new double[M, n];
+                        values2 = new double[M, n];
 
 
                         for (int row = 0; row < M; row++)
@@ -710,7 +713,7 @@ namespace Kursach2_WF_
                         dataGridView2.RowCount = dataGridView1.Rows.Count;
                         dataGridView2.ColumnCount = dataGridView1.Columns.Count;
 
-                        double[,] values2 = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
+                        values2 = new double[dataGridView1.Rows.Count, dataGridView1.Columns.Count];
 
                         if (Convert.ToInt32(textBox3.Text) > 1)
                         {
@@ -801,7 +804,7 @@ namespace Kursach2_WF_
                         dataGridView2.RowCount = M;
                         dataGridView2.ColumnCount = n;
 
-                        double[,] values2 = new double[M, n];
+                        values2 = new double[M, n];
 
                         for (int i = 0; i < M; i++)
                         {
@@ -859,8 +862,23 @@ namespace Kursach2_WF_
                     dataGridView1.Rows[i].Cells[j].Value = null;
                 }
             }
-        }
 
+            if (opt == 7 || opt == 4)
+            {
+                for (i = 0; i < m; i++)
+                {
+                    for (j = 0; j < n; j++)
+                    {
+                        dataGridView3.Rows[i].Cells[j].Value = null;
+                    }
+                }
+            }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Form2 oForm2 = new Form2(this.opt,this.values,this.values2,this.svalues);
+            oForm2.ShowDialog();
+        }
         public void datagridsize(bool small)
         {
             int x, y;
