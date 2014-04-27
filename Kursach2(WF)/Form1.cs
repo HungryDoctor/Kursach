@@ -25,6 +25,7 @@ namespace Kursach2_WF_
         double[,] values;
         double[,] values2;
         double[,] svalues;
+        double number;
         public Form1()
         {
             InitializeComponent();
@@ -146,6 +147,17 @@ namespace Kursach2_WF_
                 button1.Enabled = false;
             }
         }
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                number = Convert.ToDouble(textBox3.Text);
+            }
+            catch
+            {
+
+            }
+        }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
@@ -249,10 +261,10 @@ namespace Kursach2_WF_
             dataGridView2.Visible = false;
             opt = 4;
 
+            datagridsize(true);
+
             int z = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
             if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
-
-            datagridsize(true);
 
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + z + 5);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
@@ -272,7 +284,7 @@ namespace Kursach2_WF_
             dataGridView2.Visible = false;
             dataGridView3.Visible = false;
             opt = 5;
-
+            
             datagridsize(false);
 
             textBox3.Location = new Point(this.textBox3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
@@ -347,6 +359,7 @@ namespace Kursach2_WF_
             dataGridView1.RowCount = M;
             dataGridView1.ColumnCount = N;
             int i = 0, j = 0;
+            values = new double[M, N];
 
             Random random = new Random();
 
@@ -358,6 +371,7 @@ namespace Kursach2_WF_
                     dataGridView1.Columns[j].Width = 25;
                     dataGridView1.Rows[i].Height = 20;
                     dataGridView1.Rows[i].Cells[j].Value = randomNumber;
+                    values[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
                 }
             }
 
@@ -368,6 +382,7 @@ namespace Kursach2_WF_
 
                 dataGridView3.RowCount = m;
                 dataGridView3.ColumnCount = n;
+                svalues = new double[m, n];
 
                 for (i = 0; i < m; i++)
                 {
@@ -377,6 +392,7 @@ namespace Kursach2_WF_
                         dataGridView3.Columns[j].Width = 25;
                         dataGridView3.Rows[i].Height = 20;
                         dataGridView3.Rows[i].Cells[j].Value = randomNumber;
+                        svalues[i, j] = Convert.ToDouble(dataGridView3.Rows[i].Cells[j].Value);
                     }
                 }
                 datagridsize(true);
@@ -876,8 +892,10 @@ namespace Kursach2_WF_
         }
         private void button4_Click(object sender, EventArgs e)
         {
-            Form2 oForm2 = new Form2(this.opt,this.values,this.values2,this.svalues);
+
+            Form2 oForm2 = new Form2(this.opt, this.values, this.values2, this.svalues, this.number);
             oForm2.ShowDialog();
+
         }
         public void datagridsize(bool small)
         {
@@ -917,7 +935,7 @@ namespace Kursach2_WF_
                 if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 127 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
                 if (p > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) p = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
                 dataGridView3.Visible = true;
-                dataGridView3.Location = new Point(this.dataGridView3.Location.X, label2.Location.X + label2.Width + 5);
+                dataGridView3.Location = new Point(this.dataGridView3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + label2.Width + 10);
                 dataGridView3.Location = new Point(this.dataGridView3.Location.Y, (400 - p) / 2);
                 dataGridView3.Size = new System.Drawing.Size(z, p);
             }
