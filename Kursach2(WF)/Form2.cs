@@ -40,7 +40,34 @@ namespace Kursach2_WF_
             var save = new files();
             save.option = opt;
             save.number = number;
-            int j = values.Length;
+
+            if (values != null)
+            {
+                save.firstm = new double[values.Length / values.Rank, values.Rank];
+                for (int i = 0; i < values.Length / values.Rank; i++)
+                    for (int j = 0; j < values.Rank; j++)
+                    {
+                        save.firstm[i, j] = values[i, j];
+                    }
+            }
+            if (svalues != null)
+            {
+                save.secondm = new double[svalues.Length / svalues.Rank, svalues.Rank];
+                for (int i = 0; i < svalues.Length / svalues.Rank; i++)
+                    for (int j = 0; j < svalues.Rank; j++)
+                    {
+                        save.secondm[i, j] = svalues[i, j];
+                    }
+            }
+            if (values2 != null)
+            {
+                save.answer = new double[values2.Length / values2.Rank, values2.Rank];
+                for (int i = 0; i < values2.Length / values2.Rank; i++)
+                    for (int j = 0; j < values2.Rank; j++)
+                    {
+                        save.answer[i, j] = values2[i, j];
+                    }
+            }
 
             SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
             SaveFileDialog1.ShowDialog();
@@ -48,12 +75,43 @@ namespace Kursach2_WF_
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var save = new files();
+
+            if (values != null)
+            {
+                save.firstm = new double[values.Length / values.Rank, values.Rank];
+                for (int i = 0; i < values.Length / values.Rank; i++)
+                    for (int j = 0; j < values.Rank; j++)
+                    {
+                        save.firstm[i, j] = values[i, j];
+                    }
+            }
+            if (svalues != null)
+            {
+                save.secondm = new double[svalues.Length / svalues.Rank, svalues.Rank];
+                for (int i = 0; i < svalues.Length / svalues.Rank; i++)
+                    for (int j = 0; j < svalues.Rank; j++)
+                    {
+                        save.secondm[i, j] = svalues[i, j];
+                    }
+            }
             SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
             SaveFileDialog1.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            var save = new files();
+
+            if (values2 != null)
+            {
+                save.answer = new double[values2.Length / values2.Rank, values2.Rank];
+                for (int i = 0; i < values2.Length / values2.Rank; i++)
+                    for (int j = 0; j < values2.Rank; j++)
+                    {
+                        save.answer[i, j] = values2[i, j];
+                    }
+            }
             SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
             SaveFileDialog1.ShowDialog();
         }
