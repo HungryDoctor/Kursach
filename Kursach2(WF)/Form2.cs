@@ -51,7 +51,6 @@ namespace Kursach2_WF_
             save.answer = values2;
 
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
-            // files deserialized = JsonConvert.DeserializeObject<files>(output);
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
@@ -73,7 +72,6 @@ namespace Kursach2_WF_
             save.secondm = svalues;
 
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
-            // files deserialized = JsonConvert.DeserializeObject<files>(output);
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
@@ -93,7 +91,6 @@ namespace Kursach2_WF_
             save.answer = values2;
 
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
-            // files deserialized = JsonConvert.DeserializeObject<files>(output);
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
@@ -104,13 +101,36 @@ namespace Kursach2_WF_
         private void button4_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
-            OpenFileDialog1.ShowDialog();
+            OpenFileDialog1.Filter = "Json Files (*.json)|*.json";
+            OpenFileDialog1.FileName = "default";
+            OpenFileDialog1.DefaultExt = "json";
+
+            if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                files open = JsonConvert.DeserializeObject<files>(File.ReadAllText(OpenFileDialog1.FileName));
+                opt = open.option;
+                number = open.number;
+                values = open.firstm;
+                svalues = open.secondm;
+                values2 = open.answer;
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
-            OpenFileDialog1.ShowDialog();
+            OpenFileDialog1.Filter = "Json Files (*.json)|*.json";
+            OpenFileDialog1.FileName = "default";
+            OpenFileDialog1.DefaultExt = "json";
+
+            if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                files open = JsonConvert.DeserializeObject<files>(File.ReadAllText(OpenFileDialog1.FileName));
+                opt = open.option;
+                number = open.number;
+                values = open.firstm;
+                svalues = open.secondm;
+            }
         }
     }
 }

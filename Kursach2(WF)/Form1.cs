@@ -3,7 +3,7 @@
 //   recompile in 3.5 or 3.0;
 //   remove unnecessary libraries;
 //   in form2 disable buttons (depends on options and inputed data);
-//   open from file;
+//   transfer data from opened file;
 
 using System;
 using System.Collections.Generic;
