@@ -2,8 +2,8 @@
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 //   remove unnecessary libraries;
-//   in form2 disable buttons (depends on options and inputed data);
-//   transfer data from opened file;
+//   in form2 disable buttons (depends on option and inputed data);
+//   change form1 depending on transfered data;
 
 using System;
 using System.Collections.Generic;
@@ -893,6 +893,48 @@ namespace Kursach2_WF_
             Form2 oForm2 = new Form2(this.opt, this.values, this.values2, this.svalues, this.number);
             oForm2.ShowDialog();
 
+            bool aim = oForm2.retaim;
+            if (aim == true)
+            {
+                opt = oForm2.retopt;
+                number = oForm2.retnumber;
+                values = oForm2.retsvalues;
+                svalues = oForm2.retsvalues;
+                values2 = oForm2.retvalues2;
+                bool load=oForm2.retloadall;
+                if (opt == 0)
+                {
+
+                }
+                else if (opt == 1)
+                {
+
+                }
+                else if (opt == 2)
+                {
+
+                }
+                else if (opt == 3)
+                {
+
+                }
+                else if (opt == 4)
+                {
+
+                }
+                else if (opt == 5)
+                {
+
+                }
+                else if (opt == 6)
+                {
+
+                }
+                else if (opt == 7)
+                {
+
+                }
+            }
         }
         public void datagridsize(bool small)
         {

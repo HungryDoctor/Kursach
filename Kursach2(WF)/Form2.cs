@@ -14,11 +14,14 @@ namespace Kursach2_WF_
 {
     public partial class Form2 : Form
     {
-        int opt;
-        string number;
-        double[,] values;
-        double[,] values2;
-        double[,] svalues;
+        private int opt;
+        private string number;
+        private double[,] values;
+        private double[,] svalues;
+        private double[,] values2;
+        private bool aim;
+        private bool loadall;
+
         public Form2(int opt, double[,] values, double[,] values2, double[,] svalues, string number)
         {
             InitializeComponent();
@@ -56,6 +59,7 @@ namespace Kursach2_WF_
                 using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
                     sw.WriteLine(output);
             }
+            aim = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -77,6 +81,7 @@ namespace Kursach2_WF_
                 using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
                     sw.WriteLine(output);
             }
+            aim = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -96,6 +101,7 @@ namespace Kursach2_WF_
                 using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
                     sw.WriteLine(output);
             }
+            aim = false;
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -113,6 +119,8 @@ namespace Kursach2_WF_
                 values = open.firstm;
                 svalues = open.secondm;
                 values2 = open.answer;
+                aim = true;
+                loadall = true;
             }
         }
 
@@ -130,7 +138,37 @@ namespace Kursach2_WF_
                 number = open.number;
                 values = open.firstm;
                 svalues = open.secondm;
+                aim = true;
+                loadall = false;
             }
+        }
+        public int retopt
+        {
+            get { return opt; }
+        }
+        public string retnumber
+        {
+            get { return number; }
+        }
+        public double[,] retvalues
+        {
+            get { return values; }
+        }
+        public double[,] retsvalues
+        {
+            get { return svalues; }
+        }
+        public double[,] retvalues2
+        {
+            get { return values2; }
+        }
+        public bool retaim
+        {
+            get { return aim; }
+        }
+        public bool retloadall
+        {
+            get { return loadall; }
         }
     }
 }
