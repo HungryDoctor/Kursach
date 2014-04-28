@@ -2,7 +2,7 @@
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 //   remove unnecessary libraries;
-//   fix bugs in data transfer from form1 to form2 (dynamic matixex updates)
+//   in form2 disable buttons (depends on options and inputed data);
 //   open from file;
 
 using System;
@@ -886,7 +886,10 @@ namespace Kursach2_WF_
         }
         private void button4_Click(object sender, EventArgs e)
         {
-
+            if (dataGridView1.Visible == false) values = null;
+            if (dataGridView2.Visible == false) values2 = null;
+            if (dataGridView3.Visible == false) svalues = null;
+            if (textBox3.Visible == false) number = null;
             Form2 oForm2 = new Form2(this.opt, this.values, this.values2, this.svalues, this.number);
             oForm2.ShowDialog();
 

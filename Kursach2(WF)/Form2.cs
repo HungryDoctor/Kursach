@@ -48,7 +48,7 @@ namespace Kursach2_WF_
             save.number = number;
             save.firstm = values;
             save.secondm = svalues;
-            save.answer = values;
+            save.answer = values2;
 
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
             // files deserialized = JsonConvert.DeserializeObject<files>(output);
@@ -71,6 +71,7 @@ namespace Kursach2_WF_
             save.number = number;
             save.firstm = values;
             save.secondm = svalues;
+
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
             // files deserialized = JsonConvert.DeserializeObject<files>(output);
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
