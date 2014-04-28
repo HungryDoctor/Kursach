@@ -2,7 +2,7 @@
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 //   remove unnecessary libraries;
-//   save to file;
+//   fix bugs in data transfer from form1 to form2 (dynamic matixex updates)
 //   open from file;
 
 using System;
