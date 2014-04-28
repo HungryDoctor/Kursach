@@ -14,11 +14,11 @@ namespace Kursach2_WF_
     public partial class Form2 : Form
     {
         int opt;
-        double number;
+        string number;
         double[,] values;
         double[,] values2;
         double[,] svalues;
-        public Form2(int opt, double[,] values, double[,] values2, double[,] svalues, double number)
+        public Form2(int opt, double[,] values, double[,] values2, double[,] svalues, string number)
         {
             InitializeComponent();
             this.opt = opt;
@@ -30,13 +30,19 @@ namespace Kursach2_WF_
         public class files
         {
             public int option { get; set; }
-            public double number { get; set; }
+            public string number { get; set; }
             public double[,] firstm { get; set; }
             public double[,] secondm { get; set; }
             public double[,] answer { get; set; }
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
+            SaveFileDialog1.Filter = "Json Files (*.json)|*.json";
+            SaveFileDialog1.FileName = "default";
+            SaveFileDialog1.DefaultExt = "json";
+            SaveFileDialog1.CheckFileExists = true;
+
             var save = new files();
             save.option = opt;
             save.number = number;
@@ -69,13 +75,20 @@ namespace Kursach2_WF_
                     }
             }
 
-            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
             SaveFileDialog1.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
+            SaveFileDialog1.Filter = "Json Files (*.json)|*.json";
+            SaveFileDialog1.FileName = "default";
+            SaveFileDialog1.DefaultExt = "json";
+            SaveFileDialog1.CheckFileExists = true;
+
             var save = new files();
+            save.option = opt;
+            save.number = number;
 
             if (values != null)
             {
@@ -95,13 +108,19 @@ namespace Kursach2_WF_
                         save.secondm[i, j] = svalues[i, j];
                     }
             }
-            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
             SaveFileDialog1.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
+            SaveFileDialog1.Filter = "Json Files (*.json)|*.json";
+            SaveFileDialog1.FileName = "default";
+            SaveFileDialog1.DefaultExt = "json";
+            SaveFileDialog1.CheckFileExists = true;
+
             var save = new files();
+            save.option = opt;
 
             if (values2 != null)
             {
@@ -112,7 +131,6 @@ namespace Kursach2_WF_
                         save.answer[i, j] = values2[i, j];
                     }
             }
-            SaveFileDialog SaveFileDialog1 = new SaveFileDialog();
             SaveFileDialog1.ShowDialog();
         }
 

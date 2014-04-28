@@ -25,7 +25,7 @@ namespace Kursach2_WF_
         double[,] values;
         double[,] values2;
         double[,] svalues;
-        double number;
+        string number;
         public Form1()
         {
             InitializeComponent();
@@ -149,14 +149,8 @@ namespace Kursach2_WF_
         }
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                number = Convert.ToDouble(textBox3.Text);
-            }
-            catch
-            {
 
-            }
+            number = textBox3.Text;
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
@@ -284,7 +278,7 @@ namespace Kursach2_WF_
             dataGridView2.Visible = false;
             dataGridView3.Visible = false;
             opt = 5;
-            
+
             datagridsize(false);
 
             textBox3.Location = new Point(this.textBox3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
