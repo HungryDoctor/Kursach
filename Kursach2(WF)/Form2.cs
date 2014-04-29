@@ -108,7 +108,7 @@ namespace Kursach2_WF_
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
             OpenFileDialog1.Filter = "Json Files (*.json)|*.json";
-            OpenFileDialog1.FileName = "default";
+            OpenFileDialog1.FileName = "default.json";
             OpenFileDialog1.DefaultExt = "json";
 
             if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
@@ -128,7 +128,7 @@ namespace Kursach2_WF_
         {
             OpenFileDialog OpenFileDialog1 = new OpenFileDialog();
             OpenFileDialog1.Filter = "Json Files (*.json)|*.json";
-            OpenFileDialog1.FileName = "default";
+            OpenFileDialog1.FileName = "default.json";
             OpenFileDialog1.DefaultExt = "json";
 
             if (OpenFileDialog1.ShowDialog() == DialogResult.OK)

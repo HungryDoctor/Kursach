@@ -1,9 +1,9 @@
 ﻿//To do list:
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
-//   remove unnecessary libraries;
 //   in form2 disable buttons (depends on option and inputed data);
 //   change form1 depending on transfered data;
+//   fix datagridsize function (resize array);
 
 using System;
 using System.Collections.Generic;
@@ -19,13 +19,14 @@ namespace Kursach2_WF_
 {
     public partial class Form1 : Form
     {
-        int opt = 0;
-        int N, M;
-        int n, m;
-        double[,] values;
-        double[,] values2;
-        double[,] svalues;
-        string number;
+        private int opt = 0;
+        private int N, M;
+        private int n, m;
+        private double[,] values;
+        private double[,] values2;
+        private double[,] svalues;
+        private string number;
+        private bool loading;
         public Form1()
         {
             InitializeComponent();
@@ -121,6 +122,10 @@ namespace Kursach2_WF_
                 else
                 {
                     button1.Enabled = true;
+                    if (opt == 7)
+                    {
+                        textBox5.Text = textBox1.Text;
+                    }
                 }
             }
             catch
@@ -140,6 +145,14 @@ namespace Kursach2_WF_
                 else
                 {
                     button1.Enabled = true;
+                    if (opt == 7)
+                    {
+                        textBox4.Text = textBox2.Text;
+                    }
+                    else if (opt == 4)
+                    {
+                        textBox5.Text = textBox2.Text;
+                    }
                 }
             }
             catch
@@ -328,7 +341,38 @@ namespace Kursach2_WF_
             label2.Location = new Point(this.label2.Location.X, dataGridView1.Location.X + z + 5);
             label2.Location = new Point(this.label2.Location.Y, dataGridView1.Location.Y + (dataGridView1.Size.Height / 2) - 7);
         }
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (loading == false)
+            {
+                for (int i = 0; i < M; i++)
+                {
+                    for (int j = 0; j < N; j++)
+                    {
+                        values[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
+                    }
+                }
+            }
+        }
 
+        private void dataGridView3_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (loading == false)
+            {
+                for (int i = 0; i < m; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        svalues[i, j] = Convert.ToDouble(dataGridView3.Rows[i].Cells[j].Value);
+                    }
+                }
+            }
+        }
+
+        private void dataGridView2_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             radioButton1.Enabled = false;
@@ -339,8 +383,10 @@ namespace Kursach2_WF_
             radioButton6.Enabled = false;
             radioButton7.Enabled = false;
             label4.Visible = false;
+            label3.Visible = false;
             button2.Enabled = false;
             button3.Enabled = false;
+            button5.Enabled = false;
             textBox4.Visible = false;
             textBox5.Visible = false;
             dataGridView2.Visible = false;
@@ -353,49 +399,49 @@ namespace Kursach2_WF_
             dataGridView1.RowCount = M;
             dataGridView1.ColumnCount = N;
             int i = 0, j = 0;
-            values = new double[M, N];
+            if (loading==false)
+            {
+                values = new double[M, N];
+            }
 
-            Random random = new Random();
 
             for (i = 0; i < M; i++)
             {
                 for (j = 0; j < N; j++)
                 {
-                    int randomNumber = random.Next(0, 100);
                     dataGridView1.Columns[j].Width = 25;
                     dataGridView1.Rows[i].Height = 20;
-                    dataGridView1.Rows[i].Cells[j].Value = randomNumber;
-                    values[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
+                }
+            }
+
+            m = Convert.ToInt32(textBox5.Text);
+            n = Convert.ToInt32(textBox4.Text);
+
+            dataGridView3.RowCount = m;
+            dataGridView3.ColumnCount = n;
+            if (loading == false)
+            {
+                svalues = new double[m, n];
+            }
+
+            for (i = 0; i < m; i++)
+            {
+                for (j = 0; j < n; j++)
+                {
+                    dataGridView3.Columns[j].Width = 25;
+                    dataGridView3.Rows[i].Height = 20;
                 }
             }
 
             if (opt == 4 || opt == 7)
             {
-                m = Convert.ToInt32(textBox5.Text);
-                n = Convert.ToInt32(textBox4.Text);
-
-                dataGridView3.RowCount = m;
-                dataGridView3.ColumnCount = n;
-                svalues = new double[m, n];
-
-                for (i = 0; i < m; i++)
-                {
-                    for (j = 0; j < n; j++)
-                    {
-                        int randomNumber = random.Next(0, 100);
-                        dataGridView3.Columns[j].Width = 25;
-                        dataGridView3.Rows[i].Height = 20;
-                        dataGridView3.Rows[i].Cells[j].Value = randomNumber;
-                        svalues[i, j] = Convert.ToDouble(dataGridView3.Rows[i].Cells[j].Value);
-                    }
-                }
+                label3.Visible = true;
                 datagridsize(true);
             }
             else
             {
                 datagridsize(false);
             }
-
 
             radioButton1.Enabled = true;
             if (M == N)
@@ -409,6 +455,7 @@ namespace Kursach2_WF_
             radioButton7.Enabled = true;
             button2.Enabled = true;
             button3.Enabled = true;
+            button5.Enabled = true;
 
             opt = 0;
             label2.Visible = false;
@@ -488,7 +535,7 @@ namespace Kursach2_WF_
                     }
                     else
                     {
-                        values[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value.ToString());
+                        values[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
                     }
                 }
                 if (notfin == true)
@@ -511,7 +558,7 @@ namespace Kursach2_WF_
                             }
                             else
                             {
-                                svalues[i, j] = Convert.ToDouble(dataGridView3.Rows[i].Cells[j].Value.ToString());
+                                svalues[i, j] = Convert.ToDouble(dataGridView3.Rows[i].Cells[j].Value);
                             }
                         }
                         if (notfin == true)
@@ -886,6 +933,7 @@ namespace Kursach2_WF_
         }
         private void button4_Click(object sender, EventArgs e)
         {
+            loading = true;
             if (dataGridView1.Visible == false) values = null;
             if (dataGridView2.Visible == false) values2 = null;
             if (dataGridView3.Visible == false) svalues = null;
@@ -898,41 +946,371 @@ namespace Kursach2_WF_
             {
                 opt = oForm2.retopt;
                 number = oForm2.retnumber;
-                values = oForm2.retsvalues;
+                values = oForm2.retvalues;
                 svalues = oForm2.retsvalues;
                 values2 = oForm2.retvalues2;
-                bool load=oForm2.retloadall;
+                bool load = oForm2.retloadall;
                 if (opt == 0)
                 {
-
+                    if (radioButton1.Checked == true)
+                    {
+                        radioButton1.Checked = false;
+                    }
+                    if (radioButton2.Checked == true)
+                    {
+                        radioButton2.Checked = false;
+                    }
+                    if (radioButton3.Checked == true)
+                    {
+                        radioButton3.Checked = false;
+                    }
+                    if (radioButton4.Checked == true)
+                    {
+                        radioButton4.Checked = false;
+                    }
+                    if (radioButton5.Checked == true)
+                    {
+                        radioButton5.Checked = false;
+                    }
+                    if (radioButton6.Checked == true)
+                    {
+                        radioButton6.Checked = false;
+                    }
+                    if (radioButton7.Checked == true)
+                    {
+                        radioButton7.Checked = false;
+                    }
+                    opt = 0;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
                 }
                 else if (opt == 1)
                 {
-
+                    radioButton1.Checked = true;
+                    if (radioButton2.Checked == true)
+                    {
+                        radioButton2.Checked = false;
+                    }
+                    if (radioButton3.Checked == true)
+                    {
+                        radioButton3.Checked = false;
+                    }
+                    if (radioButton4.Checked == true)
+                    {
+                        radioButton4.Checked = false;
+                    }
+                    if (radioButton5.Checked == true)
+                    {
+                        radioButton5.Checked = false;
+                    }
+                    if (radioButton6.Checked == true)
+                    {
+                        radioButton6.Checked = false;
+                    }
+                    if (radioButton7.Checked == true)
+                    {
+                        radioButton7.Checked = false;
+                    }
+                    opt = 1;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
                 }
                 else if (opt == 2)
                 {
-
+                    if (radioButton1.Checked == true)
+                    {
+                        radioButton1.Checked = false;
+                    }
+                    radioButton2.Checked = true;
+                    if (radioButton3.Checked == true)
+                    {
+                        radioButton3.Checked = false;
+                    }
+                    if (radioButton4.Checked == true)
+                    {
+                        radioButton4.Checked = false;
+                    }
+                    if (radioButton5.Checked == true)
+                    {
+                        radioButton5.Checked = false;
+                    }
+                    if (radioButton6.Checked == true)
+                    {
+                        radioButton6.Checked = false;
+                    }
+                    if (radioButton7.Checked == true)
+                    {
+                        radioButton7.Checked = false;
+                    }
+                    opt = 2;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
                 }
                 else if (opt == 3)
                 {
-
+                    if (radioButton1.Checked == true)
+                    {
+                        radioButton1.Checked = false;
+                    }
+                    if (radioButton2.Checked == true)
+                    {
+                        radioButton2.Checked = false;
+                    }
+                    radioButton3.Checked = true;
+                    if (radioButton4.Checked == true)
+                    {
+                        radioButton4.Checked = false;
+                    }
+                    if (radioButton5.Checked == true)
+                    {
+                        radioButton5.Checked = false;
+                    }
+                    if (radioButton6.Checked == true)
+                    {
+                        radioButton6.Checked = false;
+                    }
+                    if (radioButton7.Checked == true)
+                    {
+                        radioButton7.Checked = false;
+                    }
+                    opt = 3;
+                    textBox3.Text = number;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
                 }
                 else if (opt == 4)
                 {
-
+                    if (radioButton1.Checked == true)
+                    {
+                        radioButton1.Checked = false;
+                    }
+                    if (radioButton2.Checked == true)
+                    {
+                        radioButton2.Checked = false;
+                    }
+                    if (radioButton3.Checked == true)
+                    {
+                        radioButton3.Checked = false;
+                    }
+                    radioButton4.Checked = true;
+                    if (radioButton5.Checked == true)
+                    {
+                        radioButton5.Checked = false;
+                    }
+                    if (radioButton6.Checked == true)
+                    {
+                        radioButton6.Checked = false;
+                    }
+                    if (radioButton7.Checked == true)
+                    {
+                        radioButton7.Checked = false;
+                    }
+                    opt = 4;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    if (svalues != null)
+                    {
+                        textBox4.Text = Convert.ToString(svalues.GetLength(1));
+                    }
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
+                    for (int i = 0; i < svalues.GetLength(0); i++)
+                        for (int j = 0; j < svalues.GetLength(1); j++)
+                        {
+                            dataGridView3.Rows[i].Cells[j].Value = svalues[i, j];
+                        }
                 }
                 else if (opt == 5)
                 {
-
+                    if (radioButton1.Checked == true)
+                    {
+                        radioButton1.Checked = false;
+                    }
+                    if (radioButton2.Checked == true)
+                    {
+                        radioButton2.Checked = false;
+                    }
+                    if (radioButton3.Checked == true)
+                    {
+                        radioButton3.Checked = false;
+                    }
+                    if (radioButton4.Checked == true)
+                    {
+                        radioButton4.Checked = false;
+                    }
+                    radioButton5.Checked = true;
+                    if (radioButton6.Checked == true)
+                    {
+                        radioButton6.Checked = false;
+                    }
+                    if (radioButton7.Checked == true)
+                    {
+                        radioButton7.Checked = false;
+                    }
+                    opt = 5;
+                    textBox3.Text = number;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
                 }
                 else if (opt == 6)
                 {
-
+                    if (radioButton1.Checked == true)
+                    {
+                        radioButton1.Checked = false;
+                    }
+                    if (radioButton2.Checked == true)
+                    {
+                        radioButton2.Checked = false;
+                    }
+                    if (radioButton3.Checked == true)
+                    {
+                        radioButton3.Checked = false;
+                    }
+                    if (radioButton4.Checked == true)
+                    {
+                        radioButton4.Checked = false;
+                    }
+                    if (radioButton5.Checked == true)
+                    {
+                        radioButton5.Checked = false;
+                    }
+                    radioButton6.Checked = true;
+                    if (radioButton7.Checked == true)
+                    {
+                        radioButton7.Checked = false;
+                    }
+                    opt = 6;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
                 }
                 else if (opt == 7)
                 {
+                    if (radioButton1.Checked == true)
+                    {
+                        radioButton1.Checked = false;
+                    }
+                    if (radioButton2.Checked == true)
+                    {
+                        radioButton2.Checked = false;
+                    }
+                    if (radioButton3.Checked == true)
+                    {
+                        radioButton3.Checked = false;
+                    }
+                    if (radioButton4.Checked == true)
+                    {
+                        radioButton4.Checked = false;
+                    }
+                    if (radioButton5.Checked == true)
+                    {
+                        radioButton5.Checked = false;
+                    }
+                    if (radioButton6.Checked == true)
+                    {
+                        radioButton6.Checked = false;
+                    }
+                    radioButton7.Checked = true;
+                    opt = 7;
+                    textBox1.Text = Convert.ToString(values.GetLength(0));
+                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    if (svalues != null)
+                    {
+                        textBox4.Text = Convert.ToString(svalues.GetLength(1));
+                    }
+                    button1.PerformClick();
+                    for (int i = 0; i < values.GetLength(0); i++)
+                        for (int j = 0; j < values.GetLength(1); j++)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                        }
+                    for (int i = 0; i < svalues.GetLength(0); i++)
+                        for (int j = 0; j < svalues.GetLength(1); j++)
+                        {
+                            dataGridView3.Rows[i].Cells[j].Value = svalues[i, j];
+                        }
+                }
+            }
+            loading = false;
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            label4.Visible = false;
+            dataGridView2.Visible = false;
+            textBox3.Text = "";
 
+            Random random = new Random();
+
+
+            if (opt == 3)
+            {
+                double randomNumber = 125 + random.NextDouble() * (-250);
+                textBox3.Text = randomNumber.ToString();
+            }
+            else if (opt == 5)
+            {
+                int randomNumber = random.Next(1, 10);
+                textBox3.Text = randomNumber.ToString();
+            }
+
+            int i = 0, j = 0;
+            for (i = 0; i < M; i++)
+            {
+                for (j = 0; j < N; j++)
+                {
+                    double randomNumber = 125 + random.NextDouble() * (-250);
+                    dataGridView1.Rows[i].Cells[j].Value = randomNumber;
+                }
+            }
+
+            if (opt == 7 || opt == 4)
+            {
+                for (i = 0; i < m; i++)
+                {
+                    for (j = 0; j < n; j++)
+                    {
+                        double randomNumber = 125+ random.NextDouble()*(-250);
+                        dataGridView3.Rows[i].Cells[j].Value = randomNumber;
+                    }
                 }
             }
         }
