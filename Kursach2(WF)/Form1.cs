@@ -3,7 +3,7 @@
 //   recompile in 3.5 or 3.0;
 //   in form2 disable buttons (depends on option and inputed data);
 //   change form1 depending on transfered data;
-//   fix datagridsize function (resize array);
+//   fix datagridsize function (resize cell);
 
 using System;
 using System.Collections.Generic;
@@ -486,6 +486,7 @@ namespace Kursach2_WF_
             {
                 radioButton4.Checked = false;
                 radioButton4.Checked = true;
+                dataGridView3.Visible = true;
             }
             if (radioButton5.Checked == true)
             {
@@ -515,6 +516,7 @@ namespace Kursach2_WF_
             {
                 radioButton7.Checked = false;
                 radioButton7.Checked = true;
+                dataGridView3.Visible = true;
             }
         }
 
@@ -1302,14 +1304,17 @@ namespace Kursach2_WF_
                 }
             }
 
-            if (opt == 7 || opt == 4)
+            if (opt == 4 || opt == 7)
             {
-                for (i = 0; i < m; i++)
+                if (dataGridView3.Visible == true)
                 {
-                    for (j = 0; j < n; j++)
+                    for (i = 0; i < m; i++)
                     {
-                        double randomNumber = 125+ random.NextDouble()*(-250);
-                        dataGridView3.Rows[i].Cells[j].Value = randomNumber;
+                        for (j = 0; j < n; j++)
+                        {
+                            double randomNumber = 125 + random.NextDouble() * (-250);
+                            dataGridView3.Rows[i].Cells[j].Value = randomNumber;
+                        }
                     }
                 }
             }
@@ -1351,7 +1356,6 @@ namespace Kursach2_WF_
 
                 if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 127 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
                 if (p > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) p = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
-                dataGridView3.Visible = true;
                 dataGridView3.Location = new Point(this.dataGridView3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + label2.Width + 10);
                 dataGridView3.Location = new Point(this.dataGridView3.Location.Y, (400 - p) / 2);
                 dataGridView3.Size = new System.Drawing.Size(z, p);
