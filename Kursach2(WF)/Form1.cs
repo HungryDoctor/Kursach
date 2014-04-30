@@ -3,7 +3,6 @@
 //   recompile in 3.5 or 3.0;
 //   in form2 disable buttons (depends on option and inputed data);
 //   change form1 depending on transfered data;
-//   fix datagridsize function (resize cell);
 
 using System;
 using System.Collections.Generic;
@@ -1328,26 +1327,11 @@ namespace Kursach2_WF_
 
             if (small == true)
             {
-                m = Convert.ToInt32(textBox5.Text);
-                n = Convert.ToInt32(textBox4.Text);
-
-                dataGridView3.RowCount = m;
-                dataGridView3.ColumnCount = n;
-
                 if (x > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) x = 127 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
                 if (y > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) y = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
                 dataGridView1.Location = new Point(this.dataGridView1.Location.X, textBox1.Location.X);
                 dataGridView1.Location = new Point(this.dataGridView1.Location.Y, (400 - y) / 2);
                 dataGridView1.Size = new System.Drawing.Size(x, y);
-
-                for (int i = 0; i < m; i++)
-                {
-                    for (int j = 0; j < n; j++)
-                    {
-                        dataGridView3.Columns[j].Width = 25;
-                        dataGridView3.Rows[i].Height = 20;
-                    }
-                }
 
                 int z, p;
 
