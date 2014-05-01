@@ -2,7 +2,6 @@
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 //   in form2 disable buttons (depends on option and inputed data);
-//   save null cells;  
 //   disable arrows in some cases;
 
 using System;
@@ -27,6 +26,9 @@ namespace Kursach2_WF_
         private double[,] svalues;
         private string number;
         private bool loading;
+        private string[,] firstm;
+        private string[,] answer;
+        private string[,] secondm;
         public Form1()
         {
             InitializeComponent();
@@ -805,11 +807,46 @@ namespace Kursach2_WF_
         private void button4_Click(object sender, EventArgs e)
         {
             loading = true;
-            if (dataGridView1.Visible == false) values = null;
-            if (dataGridView2.Visible == false) values2 = null;
-            if (dataGridView3.Visible == false) svalues = null;
+
+            firstm = new string[dataGridView1.RowCount, dataGridView1.ColumnCount];
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                {
+                    firstm[i, j] = Convert.ToString(dataGridView1.Rows[i].Cells[j].Value);
+                }
+
+
+            if (dataGridView2.Visible == true)
+            {
+                answer = new string[dataGridView2.RowCount, dataGridView2.ColumnCount];
+                for (int i = 0; i < dataGridView2.RowCount; i++)
+                    for (int j = 0; j < dataGridView2.ColumnCount; j++)
+                    {
+                        answer[i, j] = Convert.ToString(dataGridView2.Rows[i].Cells[j].Value);
+                    }
+            }
+            else
+            {
+                values2 = null;
+            }
+
+            if (dataGridView3.Visible == true)
+            {
+                secondm = new string[dataGridView3.RowCount, dataGridView3.ColumnCount];
+                for (int i = 0; i < dataGridView3.RowCount; i++)
+                    for (int j = 0; j < dataGridView3.ColumnCount; j++)
+                    {
+                        secondm[i, j] = Convert.ToString(dataGridView3.Rows[i].Cells[j].Value);
+                    }
+            }
+            else
+            {
+                svalues = null;
+            }
+
             if (textBox3.Visible == false) number = null;
-            Form2 oForm2 = new Form2(this.opt, this.values, this.values2, this.svalues, this.number);
+
+            Form2 oForm2 = new Form2(this.opt, this.firstm, this.answer, this.secondm, this.number);
             oForm2.ShowDialog();
 
             bool aim = oForm2.retaim;
@@ -817,9 +854,9 @@ namespace Kursach2_WF_
             {
                 opt = oForm2.retopt;
                 number = oForm2.retnumber;
-                values = oForm2.retvalues;
-                svalues = oForm2.retsvalues;
-                values2 = oForm2.retvalues2;
+                firstm = oForm2.retvalues;
+                secondm = oForm2.retsvalues;
+                answer = oForm2.retvalues2;
                 bool load = oForm2.retloadall;
                 if (opt == 0)
                 {
@@ -852,35 +889,36 @@ namespace Kursach2_WF_
                         radioButton7.Checked = false;
                     }
                     opt = 0;
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     button1.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
                 }
                 else if (opt == 1)
                 {
                     opt = 1;
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     radioButton1.Checked = true;
                     button1.PerformClick();
                     radioButton1.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
                     if (load == true)
                     {
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        answersize();
+                        for (int i = 0; i < answer.GetLength(0); i++)
                         {
-                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            for (int j = 0; j < answer.GetLength(1); j++)
                             {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                dataGridView2.Rows[i].Cells[j].Value = answer[i, j];
                             }
                         }
                     }
@@ -888,23 +926,24 @@ namespace Kursach2_WF_
                 else if (opt == 2)
                 {
                     opt = 2;
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     radioButton2.Checked = true;
                     button1.PerformClick();
                     radioButton2.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
                     if (load == true)
                     {
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        answersize();
+                        for (int i = 0; i < answer.GetLength(0); i++)
                         {
-                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            for (int j = 0; j < answer.GetLength(1); j++)
                             {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                dataGridView2.Rows[i].Cells[j].Value = answer[i, j];
                             }
                         }
                     }
@@ -913,23 +952,24 @@ namespace Kursach2_WF_
                 {
                     opt = 3;
                     textBox3.Text = number;
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     radioButton3.Checked = true;
                     button1.PerformClick();
                     radioButton3.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
                     if (load == true)
                     {
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        answersize();
+                        for (int i = 0; i < answer.GetLength(0); i++)
                         {
-                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            for (int j = 0; j < answer.GetLength(1); j++)
                             {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                dataGridView2.Rows[i].Cells[j].Value = answer[i, j];
                             }
                         }
                     }
@@ -937,35 +977,35 @@ namespace Kursach2_WF_
                 else if (opt == 4)
                 {
                     opt = 4;
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
-                    if (svalues != null)
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
+                    if (secondm != null)
                     {
-                        textBox4.Text = Convert.ToString(svalues.GetLength(1));
+                        textBox4.Text = Convert.ToString(secondm.GetLength(1));
                     }
                     radioButton4.Checked = true;
                     button1.PerformClick();
                     radioButton4.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
-                    for (int i = 0; i < svalues.GetLength(0); i++)
-                        for (int j = 0; j < svalues.GetLength(1); j++)
+                    for (int i = 0; i < secondm.GetLength(0); i++)
+                        for (int j = 0; j < secondm.GetLength(1); j++)
                         {
-                            dataGridView3.Rows[i].Cells[j].Value = svalues[i, j];
+                            dataGridView3.Rows[i].Cells[j].Value = secondm[i, j];
                         }
                     if (load == true)
                     {
-                        M = values.GetLength(0);
-                        n = svalues.GetLength(1);
+                        M = firstm.GetLength(0);
+                        n = secondm.GetLength(1);
                         answersize();
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        for (int i = 0; i < answer.GetLength(0); i++)
                         {
-                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            for (int j = 0; j < answer.GetLength(1); j++)
                             {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                dataGridView2.Rows[i].Cells[j].Value = answer[i, j];
                             }
                         }
                     }
@@ -974,23 +1014,24 @@ namespace Kursach2_WF_
                 {
                     opt = 5;
                     textBox3.Text = number;
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     radioButton5.Checked = true;
                     button1.PerformClick();
                     radioButton5.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
                     if (load == true)
                     {
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        answersize();
+                        for (int i = 0; i < answer.GetLength(0); i++)
                         {
-                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            for (int j = 0; j < answer.GetLength(1); j++)
                             {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                dataGridView2.Rows[i].Cells[j].Value = answer[i, j];
                             }
                         }
                     }
@@ -998,23 +1039,24 @@ namespace Kursach2_WF_
                 else if (opt == 6)
                 {
                     opt = 6;
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     radioButton6.Checked = true;
                     button1.PerformClick();
                     radioButton6.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
                     if (load == true)
                     {
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        answersize();
+                        for (int i = 0; i < answer.GetLength(0); i++)
                         {
-                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            for (int j = 0; j < answer.GetLength(1); j++)
                             {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                dataGridView2.Rows[i].Cells[j].Value = answer[i, j];
                             }
                         }
 
@@ -1022,36 +1064,36 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 7)
                 {
-                    textBox1.Text = Convert.ToString(values.GetLength(0));
-                    textBox2.Text = Convert.ToString(values.GetLength(1));
-                    if (svalues != null)
+                    textBox1.Text = Convert.ToString(firstm.GetLength(0));
+                    textBox2.Text = Convert.ToString(firstm.GetLength(1));
+                    if (secondm != null)
                     {
-                        textBox4.Text = Convert.ToString(svalues.GetLength(1));
+                        textBox4.Text = Convert.ToString(secondm.GetLength(1));
                     }
                     radioButton7.Checked = true;
                     button1.PerformClick();
                     radioButton7.PerformClick();
-                    for (int i = 0; i < values.GetLength(0); i++)
-                        for (int j = 0; j < values.GetLength(1); j++)
+                    for (int i = 0; i < firstm.GetLength(0); i++)
+                        for (int j = 0; j < firstm.GetLength(1); j++)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = values[i, j];
+                            dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
-                    for (int i = 0; i < svalues.GetLength(0); i++)
-                        for (int j = 0; j < svalues.GetLength(1); j++)
+                    for (int i = 0; i < secondm.GetLength(0); i++)
+                        for (int j = 0; j < secondm.GetLength(1); j++)
                         {
-                            dataGridView3.Rows[i].Cells[j].Value = svalues[i, j];
+                            dataGridView3.Rows[i].Cells[j].Value = secondm[i, j];
                         }
 
                     if (load == true)
                     {
-                        M = values.GetLength(0);
-                        n = svalues.GetLength(1);
+                        M = firstm.GetLength(0);
+                        n = secondm.GetLength(1);
                         answersize();
-                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        for (int i = 0; i < answer.GetLength(0); i++)
                         {
-                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            for (int j = 0; j < answer.GetLength(1); j++)
                             {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                dataGridView2.Rows[i].Cells[j].Value = answer[i, j];
                             }
                         }
                     }

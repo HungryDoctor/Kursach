@@ -16,13 +16,13 @@ namespace Kursach2_WF_
     {
         private int opt;
         private string number;
-        private double[,] values;
-        private double[,] svalues;
-        private double[,] values2;
+        private string[,] values;
+        private string[,] svalues;
+        private string[,] values2;
         private bool aim;
         private bool loadall;
 
-        public Form2(int opt, double[,] values, double[,] values2, double[,] svalues, string number)
+        public Form2(int opt, string[,] values, string[,] values2, string[,] svalues, string number)
         {
             InitializeComponent();
             this.opt = opt;
@@ -35,9 +35,9 @@ namespace Kursach2_WF_
         {
             public int option { get; set; }
             public string number { get; set; }
-            public double[,] firstm { get; set; }
-            public double[,] secondm { get; set; }
-            public double[,] answer { get; set; }
+            public string[,] firstm { get; set; }
+            public string[,] secondm { get; set; }
+            public string[,] answer { get; set; }
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -150,15 +150,15 @@ namespace Kursach2_WF_
         {
             get { return number; }
         }
-        public double[,] retvalues
+        public string[,] retvalues
         {
             get { return values; }
         }
-        public double[,] retsvalues
+        public string[,] retsvalues
         {
             get { return svalues; }
         }
-        public double[,] retvalues2
+        public string[,] retvalues2
         {
             get { return values2; }
         }
