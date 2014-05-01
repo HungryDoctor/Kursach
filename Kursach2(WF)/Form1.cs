@@ -4,7 +4,7 @@
 //   in form2 disable buttons (depends on option and inputed data);
 //   disable arrows in some cases;
 //   move loading to 1 method;
-//   fix bug (firstly 5 - generated big, then 7);
+
 
 using System;
 using System.Collections.Generic;
@@ -23,6 +23,7 @@ namespace Kursach2_WF_
         private int opt = 0;
         private int N, M;
         private int n, m;
+        private bool check;
         private double[,] values;
         private double[,] values2;
         private double[,] svalues;
@@ -294,6 +295,11 @@ namespace Kursach2_WF_
             opt = 5;
 
             datagridsize(false);
+            if (check == false)
+            {
+                button1.PerformClick();
+                check = true;
+            }
 
             textBox3.Location = new Point(this.textBox3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + 5);
             textBox3.Location = new Point(this.textBox3.Location.Y, dataGridView1.Location.Y - 15);
@@ -335,6 +341,11 @@ namespace Kursach2_WF_
             opt = 7;
 
             datagridsize(true);
+            if (check == false)
+            {
+                button1.PerformClick();
+                check = true;
+            }
 
             int z = dataGridView1.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
             if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
@@ -526,6 +537,7 @@ namespace Kursach2_WF_
                 radioButton7.Checked = true;
                 dataGridView3.Visible = true;
             }
+            check = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1159,17 +1171,10 @@ namespace Kursach2_WF_
                 dataGridView1.Location = new Point(this.dataGridView1.Location.X, textBox1.Location.X);
                 dataGridView1.Location = new Point(this.dataGridView1.Location.Y, (400 - y) / 2);
                 dataGridView1.Size = new System.Drawing.Size(x, y);
-
-                int z, p;
-
-                z = dataGridView3.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
-                p = dataGridView3.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
-
-                if (z > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) z = 127 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
-                if (p > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) p = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+           
                 dataGridView3.Location = new Point(this.dataGridView3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + label2.Width + 10);
-                dataGridView3.Location = new Point(this.dataGridView3.Location.Y, (400 - p) / 2);
-                dataGridView3.Size = new System.Drawing.Size(z, p);
+                dataGridView3.Location = new Point(this.dataGridView3.Location.Y, (400 - y) / 2);
+                dataGridView3.Size = new System.Drawing.Size(x, y);
             }
             else
             {
