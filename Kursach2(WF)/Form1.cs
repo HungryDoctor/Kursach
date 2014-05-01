@@ -2,7 +2,7 @@
 //   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 //   in form2 disable buttons (depends on option and inputed data);
-//   change form1 depending on transfered data;
+//   save null cells;  
 //   disable arrows in some cases;
 
 using System;
@@ -866,6 +866,7 @@ namespace Kursach2_WF_
                     opt = 1;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
+                    radioButton1.Checked = true;
                     button1.PerformClick();
                     radioButton1.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
@@ -875,7 +876,13 @@ namespace Kursach2_WF_
                         }
                     if (load == true)
                     {
-
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
                     }
                 }
                 else if (opt == 2)
@@ -883,6 +890,7 @@ namespace Kursach2_WF_
                     opt = 2;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
+                    radioButton2.Checked = true;
                     button1.PerformClick();
                     radioButton2.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
@@ -892,7 +900,13 @@ namespace Kursach2_WF_
                         }
                     if (load == true)
                     {
-
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
                     }
                 }
                 else if (opt == 3)
@@ -901,6 +915,7 @@ namespace Kursach2_WF_
                     textBox3.Text = number;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
+                    radioButton3.Checked = true;
                     button1.PerformClick();
                     radioButton3.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
@@ -910,7 +925,13 @@ namespace Kursach2_WF_
                         }
                     if (load == true)
                     {
-
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
                     }
                 }
                 else if (opt == 4)
@@ -922,6 +943,7 @@ namespace Kursach2_WF_
                     {
                         textBox4.Text = Convert.ToString(svalues.GetLength(1));
                     }
+                    radioButton4.Checked = true;
                     button1.PerformClick();
                     radioButton4.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
@@ -936,7 +958,16 @@ namespace Kursach2_WF_
                         }
                     if (load == true)
                     {
-
+                        M = values.GetLength(0);
+                        n = svalues.GetLength(1);
+                        answersize();
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
                     }
                 }
                 else if (opt == 5)
@@ -945,6 +976,7 @@ namespace Kursach2_WF_
                     textBox3.Text = number;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
+                    radioButton5.Checked = true;
                     button1.PerformClick();
                     radioButton5.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
@@ -954,7 +986,13 @@ namespace Kursach2_WF_
                         }
                     if (load == true)
                     {
-
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
                     }
                 }
                 else if (opt == 6)
@@ -962,6 +1000,7 @@ namespace Kursach2_WF_
                     opt = 6;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
+                    radioButton6.Checked = true;
                     button1.PerformClick();
                     radioButton6.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
@@ -971,18 +1010,25 @@ namespace Kursach2_WF_
                         }
                     if (load == true)
                     {
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
 
                     }
                 }
                 else if (opt == 7)
                 {
-                    opt = 7;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
                     if (svalues != null)
                     {
                         textBox4.Text = Convert.ToString(svalues.GetLength(1));
                     }
+                    radioButton7.Checked = true;
                     button1.PerformClick();
                     radioButton7.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
@@ -995,9 +1041,19 @@ namespace Kursach2_WF_
                         {
                             dataGridView3.Rows[i].Cells[j].Value = svalues[i, j];
                         }
+
                     if (load == true)
                     {
-
+                        M = values.GetLength(0);
+                        n = svalues.GetLength(1);
+                        answersize();
+                        for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                        {
+                            for (int j = 0; j < dataGridView2.Columns.Count; j++)
+                            {
+                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                            }
+                        }
                     }
                 }
             }
