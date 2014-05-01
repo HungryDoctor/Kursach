@@ -3,6 +3,7 @@
 //   recompile in 3.5 or 3.0;
 //   in form2 disable buttons (depends on option and inputed data);
 //   change form1 depending on transfered data;
+//   size of matrix with answer in function;
 
 using System;
 using System.Collections.Generic;
@@ -398,7 +399,7 @@ namespace Kursach2_WF_
             dataGridView1.RowCount = M;
             dataGridView1.ColumnCount = N;
             int i = 0, j = 0;
-            if (loading==false)
+            if (loading == false)
             {
                 values = new double[M, N];
             }
@@ -993,143 +994,58 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 1)
                 {
-                    radioButton1.Checked = true;
-                    if (radioButton2.Checked == true)
-                    {
-                        radioButton2.Checked = false;
-                    }
-                    if (radioButton3.Checked == true)
-                    {
-                        radioButton3.Checked = false;
-                    }
-                    if (radioButton4.Checked == true)
-                    {
-                        radioButton4.Checked = false;
-                    }
-                    if (radioButton5.Checked == true)
-                    {
-                        radioButton5.Checked = false;
-                    }
-                    if (radioButton6.Checked == true)
-                    {
-                        radioButton6.Checked = false;
-                    }
-                    if (radioButton7.Checked == true)
-                    {
-                        radioButton7.Checked = false;
-                    }
                     opt = 1;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
                     button1.PerformClick();
+                    radioButton1.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
                         for (int j = 0; j < values.GetLength(1); j++)
                         {
                             dataGridView1.Rows[i].Cells[j].Value = values[i, j];
                         }
+                    if (load == true)
+                    {
+
+                    }
                 }
                 else if (opt == 2)
                 {
-                    if (radioButton1.Checked == true)
-                    {
-                        radioButton1.Checked = false;
-                    }
-                    radioButton2.Checked = true;
-                    if (radioButton3.Checked == true)
-                    {
-                        radioButton3.Checked = false;
-                    }
-                    if (radioButton4.Checked == true)
-                    {
-                        radioButton4.Checked = false;
-                    }
-                    if (radioButton5.Checked == true)
-                    {
-                        radioButton5.Checked = false;
-                    }
-                    if (radioButton6.Checked == true)
-                    {
-                        radioButton6.Checked = false;
-                    }
-                    if (radioButton7.Checked == true)
-                    {
-                        radioButton7.Checked = false;
-                    }
                     opt = 2;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
                     button1.PerformClick();
+                    radioButton2.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
                         for (int j = 0; j < values.GetLength(1); j++)
                         {
                             dataGridView1.Rows[i].Cells[j].Value = values[i, j];
                         }
+                    if (load == true)
+                    {
+
+                    }
                 }
                 else if (opt == 3)
                 {
-                    if (radioButton1.Checked == true)
-                    {
-                        radioButton1.Checked = false;
-                    }
-                    if (radioButton2.Checked == true)
-                    {
-                        radioButton2.Checked = false;
-                    }
-                    radioButton3.Checked = true;
-                    if (radioButton4.Checked == true)
-                    {
-                        radioButton4.Checked = false;
-                    }
-                    if (radioButton5.Checked == true)
-                    {
-                        radioButton5.Checked = false;
-                    }
-                    if (radioButton6.Checked == true)
-                    {
-                        radioButton6.Checked = false;
-                    }
-                    if (radioButton7.Checked == true)
-                    {
-                        radioButton7.Checked = false;
-                    }
                     opt = 3;
                     textBox3.Text = number;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
                     button1.PerformClick();
+                    radioButton3.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
                         for (int j = 0; j < values.GetLength(1); j++)
                         {
                             dataGridView1.Rows[i].Cells[j].Value = values[i, j];
                         }
+                    if (load == true)
+                    {
+
+                    }
                 }
                 else if (opt == 4)
                 {
-                    if (radioButton1.Checked == true)
-                    {
-                        radioButton1.Checked = false;
-                    }
-                    if (radioButton2.Checked == true)
-                    {
-                        radioButton2.Checked = false;
-                    }
-                    if (radioButton3.Checked == true)
-                    {
-                        radioButton3.Checked = false;
-                    }
-                    radioButton4.Checked = true;
-                    if (radioButton5.Checked == true)
-                    {
-                        radioButton5.Checked = false;
-                    }
-                    if (radioButton6.Checked == true)
-                    {
-                        radioButton6.Checked = false;
-                    }
-                    if (radioButton7.Checked == true)
-                    {
-                        radioButton7.Checked = false;
-                    }
                     opt = 4;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
@@ -1138,6 +1054,7 @@ namespace Kursach2_WF_
                         textBox4.Text = Convert.ToString(svalues.GetLength(1));
                     }
                     button1.PerformClick();
+                    radioButton4.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
                         for (int j = 0; j < values.GetLength(1); j++)
                         {
@@ -1148,109 +1065,48 @@ namespace Kursach2_WF_
                         {
                             dataGridView3.Rows[i].Cells[j].Value = svalues[i, j];
                         }
+                    if (load == true)
+                    {
+
+                    }
                 }
                 else if (opt == 5)
                 {
-                    if (radioButton1.Checked == true)
-                    {
-                        radioButton1.Checked = false;
-                    }
-                    if (radioButton2.Checked == true)
-                    {
-                        radioButton2.Checked = false;
-                    }
-                    if (radioButton3.Checked == true)
-                    {
-                        radioButton3.Checked = false;
-                    }
-                    if (radioButton4.Checked == true)
-                    {
-                        radioButton4.Checked = false;
-                    }
-                    radioButton5.Checked = true;
-                    if (radioButton6.Checked == true)
-                    {
-                        radioButton6.Checked = false;
-                    }
-                    if (radioButton7.Checked == true)
-                    {
-                        radioButton7.Checked = false;
-                    }
                     opt = 5;
                     textBox3.Text = number;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
                     button1.PerformClick();
+                    radioButton5.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
                         for (int j = 0; j < values.GetLength(1); j++)
                         {
                             dataGridView1.Rows[i].Cells[j].Value = values[i, j];
                         }
+                    if (load == true)
+                    {
+
+                    }
                 }
                 else if (opt == 6)
                 {
-                    if (radioButton1.Checked == true)
-                    {
-                        radioButton1.Checked = false;
-                    }
-                    if (radioButton2.Checked == true)
-                    {
-                        radioButton2.Checked = false;
-                    }
-                    if (radioButton3.Checked == true)
-                    {
-                        radioButton3.Checked = false;
-                    }
-                    if (radioButton4.Checked == true)
-                    {
-                        radioButton4.Checked = false;
-                    }
-                    if (radioButton5.Checked == true)
-                    {
-                        radioButton5.Checked = false;
-                    }
-                    radioButton6.Checked = true;
-                    if (radioButton7.Checked == true)
-                    {
-                        radioButton7.Checked = false;
-                    }
                     opt = 6;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
                     button1.PerformClick();
+                    radioButton6.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
                         for (int j = 0; j < values.GetLength(1); j++)
                         {
                             dataGridView1.Rows[i].Cells[j].Value = values[i, j];
                         }
+                    if (load == true)
+                    {
+
+                    }
                 }
                 else if (opt == 7)
                 {
-                    if (radioButton1.Checked == true)
-                    {
-                        radioButton1.Checked = false;
-                    }
-                    if (radioButton2.Checked == true)
-                    {
-                        radioButton2.Checked = false;
-                    }
-                    if (radioButton3.Checked == true)
-                    {
-                        radioButton3.Checked = false;
-                    }
-                    if (radioButton4.Checked == true)
-                    {
-                        radioButton4.Checked = false;
-                    }
-                    if (radioButton5.Checked == true)
-                    {
-                        radioButton5.Checked = false;
-                    }
-                    if (radioButton6.Checked == true)
-                    {
-                        radioButton6.Checked = false;
-                    }
-                    radioButton7.Checked = true;
                     opt = 7;
                     textBox1.Text = Convert.ToString(values.GetLength(0));
                     textBox2.Text = Convert.ToString(values.GetLength(1));
@@ -1259,6 +1115,7 @@ namespace Kursach2_WF_
                         textBox4.Text = Convert.ToString(svalues.GetLength(1));
                     }
                     button1.PerformClick();
+                    radioButton7.PerformClick();
                     for (int i = 0; i < values.GetLength(0); i++)
                         for (int j = 0; j < values.GetLength(1); j++)
                         {
@@ -1269,6 +1126,10 @@ namespace Kursach2_WF_
                         {
                             dataGridView3.Rows[i].Cells[j].Value = svalues[i, j];
                         }
+                    if (load == true)
+                    {
+
+                    }
                 }
             }
             loading = false;
