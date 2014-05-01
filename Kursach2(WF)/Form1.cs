@@ -1,7 +1,5 @@
 ﻿//To do list:
 //   recompile in 3.5 or 3.0;
-//   move loading to 1 method;
-
 
 using System;
 using System.Collections.Generic;
