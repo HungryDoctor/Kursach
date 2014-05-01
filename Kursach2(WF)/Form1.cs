@@ -1,5 +1,4 @@
 ﻿//To do list:
-//   set up max symbols in 1 cell and textbox;
 //   recompile in 3.5 or 3.0;
 //   in form2 disable buttons (depends on option and inputed data);
 //   disable arrows in some cases;
@@ -32,9 +31,10 @@ namespace Kursach2_WF_
         private string[,] firstm;
         private string[,] answer;
         private string[,] secondm;
+
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -425,6 +425,7 @@ namespace Kursach2_WF_
                 {
                     dataGridView1.Columns[j].Width = 25;
                     dataGridView1.Rows[i].Height = 20;
+                    ((DataGridViewTextBoxColumn)dataGridView1.Columns[j]).MaxInputLength = 10;
                 }
             }
 
@@ -444,6 +445,7 @@ namespace Kursach2_WF_
                 {
                     dataGridView3.Columns[j].Width = 25;
                     dataGridView3.Rows[i].Height = 20;
+                    ((DataGridViewTextBoxColumn)dataGridView3.Columns[j]).MaxInputLength = 10;
                 }
             }
 
@@ -1171,10 +1173,16 @@ namespace Kursach2_WF_
                 dataGridView1.Location = new Point(this.dataGridView1.Location.X, textBox1.Location.X);
                 dataGridView1.Location = new Point(this.dataGridView1.Location.Y, (400 - y) / 2);
                 dataGridView1.Size = new System.Drawing.Size(x, y);
-           
+
+                int i, j;
+                i = dataGridView3.Columns.GetColumnsWidth(DataGridViewElementStates.Visible) + 1;
+                j = dataGridView3.Rows.GetRowsHeight(DataGridViewElementStates.Visible) + 1;
+                if (i > 126 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth) i = 127 + System.Windows.Forms.SystemInformation.VerticalScrollBarWidth;
+                if (j > 101 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight) j = 102 + System.Windows.Forms.SystemInformation.HorizontalScrollBarHeight;
+
                 dataGridView3.Location = new Point(this.dataGridView3.Location.X, dataGridView1.Location.X + dataGridView1.Size.Width + label2.Width + 10);
-                dataGridView3.Location = new Point(this.dataGridView3.Location.Y, (400 - y) / 2);
-                dataGridView3.Size = new System.Drawing.Size(x, y);
+                dataGridView3.Location = new Point(this.dataGridView3.Location.Y, (400 - j) / 2);
+                dataGridView3.Size = new System.Drawing.Size(i, j);
             }
             else
             {
@@ -1217,6 +1225,7 @@ namespace Kursach2_WF_
                 {
                     dataGridView2.Columns[j].Width = 25;
                     dataGridView2.Rows[i].Height = 20;
+                    ((DataGridViewTextBoxColumn)dataGridView2.Columns[j]).MaxInputLength = 10;
                 }
             }
 
