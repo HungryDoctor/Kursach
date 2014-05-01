@@ -30,6 +30,11 @@ namespace Kursach2_WF_
             this.values = values;
             this.values2 = values2;
             this.svalues = svalues;
+
+            if (values2 == null)
+            {
+                button3.Enabled = false;
+            }
         }
         public class files
         {
