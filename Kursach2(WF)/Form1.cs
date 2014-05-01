@@ -1,5 +1,5 @@
 ﻿//To do list:
-//   recompile in 3.5 or 3.0;
+//   if necessary, add .net 4.5.1 installator
 
 using System;
 using System.Collections.Generic;
