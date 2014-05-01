@@ -3,6 +3,8 @@
 //   recompile in 3.5 or 3.0;
 //   in form2 disable buttons (depends on option and inputed data);
 //   disable arrows in some cases;
+//   move loading to 1 method;
+//   fix bug (firstly 5 - generated big, then 7);
 
 using System;
 using System.Collections.Generic;
@@ -32,9 +34,6 @@ namespace Kursach2_WF_
         public Form1()
         {
             InitializeComponent();
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
@@ -951,7 +950,6 @@ namespace Kursach2_WF_
                 else if (opt == 3)
                 {
                     opt = 3;
-                    textBox3.Text = number;
                     textBox1.Text = Convert.ToString(firstm.GetLength(0));
                     textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     radioButton3.Checked = true;
@@ -962,6 +960,7 @@ namespace Kursach2_WF_
                         {
                             dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
+                    textBox3.Text = number;
                     if (load == true)
                     {
                         answersize();
@@ -1013,7 +1012,6 @@ namespace Kursach2_WF_
                 else if (opt == 5)
                 {
                     opt = 5;
-                    textBox3.Text = number;
                     textBox1.Text = Convert.ToString(firstm.GetLength(0));
                     textBox2.Text = Convert.ToString(firstm.GetLength(1));
                     radioButton5.Checked = true;
@@ -1024,6 +1022,7 @@ namespace Kursach2_WF_
                         {
                             dataGridView1.Rows[i].Cells[j].Value = firstm[i, j];
                         }
+                    textBox3.Text = number;
                     if (load == true)
                     {
                         answersize();
