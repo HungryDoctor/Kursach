@@ -436,8 +436,8 @@ namespace Kursach2_WF_
             {
                 for (j = 0; j < N; j++)
                 {
-                    dataGridView1.Columns[j].Width = 25;
-                    dataGridView1.Rows[i].Height = 20;
+                    dataGridView1.Columns[j].Width = 35;
+                    dataGridView1.Rows[i].Height = 25;
                     ((DataGridViewTextBoxColumn)dataGridView1.Columns[j]).MaxInputLength = 10;
                 }
             }
@@ -456,8 +456,8 @@ namespace Kursach2_WF_
             {
                 for (j = 0; j < n; j++)
                 {
-                    dataGridView3.Columns[j].Width = 25;
-                    dataGridView3.Rows[i].Height = 20;
+                    dataGridView3.Columns[j].Width = 35;
+                    dataGridView3.Rows[i].Height = 25;
                     ((DataGridViewTextBoxColumn)dataGridView3.Columns[j]).MaxInputLength = 10;
                 }
             }
@@ -762,8 +762,8 @@ namespace Kursach2_WF_
                     {
                         for (int j = 0; j < dataGridView2.Columns.Count; j++)
                         {
-                            dataGridView2.Columns[j].Width = 25;
-                            dataGridView2.Rows[i].Height = 20;
+                            dataGridView2.Columns[j].Width = 35;
+                            dataGridView2.Rows[i].Height = 25;
                             dataGridView2.Rows[i].Cells[j].Value = det;
                         }
                     }
@@ -1259,8 +1259,8 @@ namespace Kursach2_WF_
             {
                 for (int j = 0; j < dataGridView2.Columns.Count; j++)
                 {
-                    dataGridView2.Columns[j].Width = 25;
-                    dataGridView2.Rows[i].Height = 20;
+                    dataGridView2.Columns[j].Width = 35;
+                    dataGridView2.Rows[i].Height = 25;
                     ((DataGridViewTextBoxColumn)dataGridView2.Columns[j]).MaxInputLength = 10;
                 }
             }
