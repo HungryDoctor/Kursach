@@ -61,8 +61,15 @@ namespace Kursach2_WF_
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
-                    sw.WriteLine(output);
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
+                        sw.WriteLine(output);
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось записать файл.\n Возможно он открыт в другой программе");
+                }
             }
             aim = false;
         }
@@ -83,8 +90,15 @@ namespace Kursach2_WF_
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
-                    sw.WriteLine(output);
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
+                        sw.WriteLine(output);
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось записать файл.\n Возможно он открыт в другой программе");
+                }
             }
             aim = false;
         }
@@ -103,8 +117,15 @@ namespace Kursach2_WF_
             string output = JsonConvert.SerializeObject(save, Formatting.Indented);
             if (SaveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
-                    sw.WriteLine(output);
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(SaveFileDialog1.FileName))
+                        sw.WriteLine(output);
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось записать файл.\n Возможно он открыт в другой программе");
+                }
             }
             aim = false;
         }
