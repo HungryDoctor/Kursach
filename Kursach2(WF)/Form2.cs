@@ -118,14 +118,24 @@ namespace Kursach2_WF_
 
             if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                files open = JsonConvert.DeserializeObject<files>(File.ReadAllText(OpenFileDialog1.FileName));
-                opt = open.option;
-                number = open.number;
-                values = open.firstm;
-                svalues = open.secondm;
-                values2 = open.answer;
-                aim = true;
-                loadall = true;
+                try
+                {
+                    files open = JsonConvert.DeserializeObject<files>(File.ReadAllText(OpenFileDialog1.FileName));
+
+                    opt = open.option;
+                    number = open.number;
+                    values = open.firstm;
+                    svalues = open.secondm;
+                    values2 = open.answer;
+                    aim = true;
+                    loadall = true;
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось считать файл " + OpenFileDialog1.FileName + "\nВозможно файл поврежден");
+
+                    aim = false;
+                }
             }
         }
 
@@ -138,13 +148,22 @@ namespace Kursach2_WF_
 
             if (OpenFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                files open = JsonConvert.DeserializeObject<files>(File.ReadAllText(OpenFileDialog1.FileName));
-                opt = open.option;
-                number = open.number;
-                values = open.firstm;
-                svalues = open.secondm;
-                aim = true;
-                loadall = false;
+                try
+                {
+                    files open = JsonConvert.DeserializeObject<files>(File.ReadAllText(OpenFileDialog1.FileName));
+                    opt = open.option;
+                    number = open.number;
+                    values = open.firstm;
+                    svalues = open.secondm;
+                    aim = true;
+                    loadall = false;
+                }
+                catch
+                {
+                    MessageBox.Show("Не удалось считать файл " + OpenFileDialog1.FileName + "\nВозможно файл поврежден");
+
+                    aim = false;
+                }
             }
         }
         public int retopt
