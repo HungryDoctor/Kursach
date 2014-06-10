@@ -1313,6 +1313,12 @@ namespace Kursach2_WF_
             }
 
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form3 oform3 = new Form3();
+            oform3.ShowDialog();
+        }
     }
 
 
