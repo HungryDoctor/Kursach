@@ -1390,6 +1390,15 @@ namespace Kursach2_WF_
                     values3[j, i] = temp;
                 }
             }
+
+            for (i = 0; i < n; i++)
+            {
+                for (j = 0; j < i; j++)
+                {
+                    values3[i, j] = values3[i, j]*(1/det);
+                }
+            }
+
             return values3;
         }
     }
