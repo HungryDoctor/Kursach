@@ -680,36 +680,31 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 4)
                 {
-                    if (textBox4.Text != "" && Convert.ToInt32(textBox4.Text) > 0)
+
+                    answersize();
+
+                    values2 = new double[M, n];
+
+                    for (int row = 0; row < M; row++)
                     {
-                        answersize();
-
-                        values2 = new double[M, n];
-
-                        for (int row = 0; row < M; row++)
+                        for (int col = 0; col < n; col++)
                         {
-                            for (int col = 0; col < n; col++)
+                            for (int inner = 0; inner < dataGridView3.Rows.Count; inner++)
                             {
-                                for (int inner = 0; inner < dataGridView3.Rows.Count; inner++)
-                                {
-                                    values2[row, col] += values[row, inner] * svalues[inner, col];
-                                }
-                            }
-                        }
-
-
-                        for (int i = 0; i < M; i++)
-                        {
-                            for (int j = 0; j < n; j++)
-                            {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                                values2[row, col] += values[row, inner] * svalues[inner, col];
                             }
                         }
                     }
-                    else
+
+
+                    for (int i = 0; i < M; i++)
                     {
-                        MessageBox.Show("Введите размер 2 матрицы");
+                        for (int j = 0; j < n; j++)
+                        {
+                            dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                        }
                     }
+
                 }
                 else if (opt == 5)
                 {
@@ -770,31 +765,24 @@ namespace Kursach2_WF_
                 }
                 else if (opt == 7)
                 {
-                    if (textBox4.Text != "" && Convert.ToInt32(textBox4.Text) > 0)
+                    answersize();
+
+                    values2 = new double[M, n];
+
+                    for (int i = 0; i < M; i++)
                     {
-                        answersize();
-
-                        values2 = new double[M, n];
-
-                        for (int i = 0; i < M; i++)
+                        for (int j = 0; j < n; j++)
                         {
-                            for (int j = 0; j < n; j++)
-                            {
-                                values2[i, j] = values[i, j] + svalues[i, j];
-                            }
-                        }
-
-                        for (int i = 0; i < M; i++)
-                        {
-                            for (int j = 0; j < n; j++)
-                            {
-                                dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
-                            }
+                            values2[i, j] = values[i, j] + svalues[i, j];
                         }
                     }
-                    else
+
+                    for (int i = 0; i < M; i++)
                     {
-                        MessageBox.Show("Введите размер 2 матрицы");
+                        for (int j = 0; j < n; j++)
+                        {
+                            dataGridView2.Rows[i].Cells[j].Value = values2[i, j];
+                        }
                     }
                 }
                 else
