@@ -1,7 +1,4 @@
-﻿//To do list:
-//   if necessary, add .net 4.5.1 installator
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -1393,9 +1390,9 @@ namespace Kursach2_WF_
 
             for (i = 0; i < n; i++)
             {
-                for (j = 0; j < i; j++)
+                for (j = 0; j < n; j++)
                 {
-                    values3[i, j] = values3[i, j]*(1/det);
+                    values3[i, j] = values3[i, j] * (1 / det);
                 }
             }
 
