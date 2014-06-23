@@ -710,6 +710,9 @@ namespace Kursach2_WF_
                         answersize();
 
                         values2 = new double[M, N];
+                        svalues = new double[M, N];
+
+                        svalues = values;
 
                         if (Convert.ToInt32(textBox3.Text) > 1)
                         {
@@ -721,16 +724,21 @@ namespace Kursach2_WF_
                                     {
                                         for (int inner = 0; inner < M; inner++)
                                         {
-                                            values2[row, col] += values[row, inner] * values[inner, col];
+                                            values2[row, col] += svalues[row, inner] * values[inner, col];
                                         }
                                     }
                                 }
+                                svalues = values2;
+                                values2 = new double[M, N];
                             }
                         }
                         else
                         {
                             values2 = values;
                         }
+
+                        values2 = svalues;
+
                         for (int i = 0; i < dataGridView2.Rows.Count; i++)
                         {
                             for (int j = 0; j < dataGridView2.Columns.Count; j++)
